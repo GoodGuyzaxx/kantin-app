@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0EFF4"
+    tools:context=".ui.user.cart.CartActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cart"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/item_cart"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/btn_lanjut">
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/primeblue" />
+
+        <TextView
+            android:id="@+id/tv_total_harga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:text="TOTAL HARGA"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line1" />
+
+        <TextView
+            android:id="@+id/tv_total_harga_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mata_uang"
+            app:layout_constraintEnd_toEndOf="@+id/tv_total_harga"
+            app:layout_constraintStart_toStartOf="@+id/tv_total_harga"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_harga" />
+
+        <TextView
+            android:id="@+id/tv_metode_pembayaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:text="Metode Pembayaran"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_metode_pembayaran"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_ripple_stroke"
+            android:focusable="true"
+            android:clickable="true"
+            android:text="Pilih Pembayaran"
+            android:textColor="@color/primeblue"
+            app:layout_constraintEnd_toEndOf="@+id/tv_metode_pembayaran"
+            app:layout_constraintStart_toStartOf="@+id/tv_metode_pembayaran"
+            app:layout_constraintTop_toBottomOf="@id/tv_metode_pembayaran" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_lanjut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LANJUTKAN"
+        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/button_ripple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

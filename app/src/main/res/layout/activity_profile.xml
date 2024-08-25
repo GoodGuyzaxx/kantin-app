@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0EFF4"
+    tools:context=".ui.user.profile.ProfileActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rectangle_profile"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="5dp"
+            android:elevation="10dp"
+            app:cardMaxElevation="10dp"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_pic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kantin"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Baim Wahyudi"
+                    android:fontFamily="@font/gothic_a1_bold"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/gothic_a1"
+                    android:text="baim@konsumen.com"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_notelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gothic_a1"
+                    android:text="082212345678"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Akun"
+         android:layout_marginStart="10dp"/>
+
+     <androidx.appcompat.widget.AppCompatButton
+         android:id="@+id/btn_akun"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Update Akun"
+         android:textAllCaps="false"
+         android:textAlignment="textStart"
+         android:elevation="10dp"
+         android:stateListAnimator="@null"
+         android:backgroundTint="@color/white"
+         android:paddingStart="10dp" />
+
+ </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transaksi"
+            android:layout_marginStart="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_transaksi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Riwayat Transaksi"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:clickable="true"
+            android:elevation="10dp"
+            android:stateListAnimator="@null"
+            android:focusable="true"
+            android:backgroundTint="@color/white"
+            android:paddingStart="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_keluar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Keluar"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textColor="#FF0000"
+            android:elevation="10dp"
+            android:stateListAnimator="@null"
+            android:backgroundTint="@color/white"
+            android:paddingStart="10dp" />
+    </LinearLayout>
+
+</LinearLayout>
