@@ -38,7 +38,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/kantin"/>
+                    android:src="@drawable/baseline_account_box_24"/>
 
                 <TextView
                     android:id="@+id/tv_profile_name"

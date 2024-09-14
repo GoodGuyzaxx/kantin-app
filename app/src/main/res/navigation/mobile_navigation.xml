@@ -3,23 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
+    app:startDestination="@id/navigation_profile">
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="uningrat.kantin.ui.admin.homeadmin.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
+        android:id="@+id/navigation_profile"
+        android:name="uningrat.kantin.ui.admin.homeadmin.ui.profileadmin.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profie" />
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="uningrat.kantin.ui.admin.homeadmin.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
+        android:id="@+id/navigation_pesanan"
+        android:name="uningrat.kantin.ui.admin.homeadmin.ui.pesanan.PesananFragment"
+        android:label="Pesanan"
+        tools:layout="@layout/fragment_pesanan" />
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="uningrat.kantin.ui.admin.homeadmin.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_menu_admin"
+        android:name="uningrat.kantin.ui.admin.homeadmin.ui.menuadmin.MenuAdminFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu_admin" />
 </navigation>

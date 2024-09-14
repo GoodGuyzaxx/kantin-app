@@ -4,15 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.ApiConfig
 import uningrat.kantin.data.retrofit.response.MenuItem
 import uningrat.kantin.data.retrofit.response.MenuResponse
-import uningrat.kantin.repository.KantinRepository
 
 class MenuViewModel: ViewModel() {
 

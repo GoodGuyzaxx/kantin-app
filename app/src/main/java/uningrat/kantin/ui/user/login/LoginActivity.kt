@@ -18,9 +18,10 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import uningrat.kantin.R
 import uningrat.kantin.databinding.ActivityLoginBinding
-import uningrat.kantin.ui.user.Home.HomeActivity
 import uningrat.kantin.ui.ViewModelFactory
+import uningrat.kantin.ui.admin.homeadmin.HomeAdminActivity
 import uningrat.kantin.ui.admin.loginadmin.LoginAdminActivity
+import uningrat.kantin.ui.user.Home.HomeActivity
 import uningrat.kantin.ui.user.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -60,6 +61,16 @@ class LoginActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 showToast("Login ${it.message}")
+                finish()
+            }
+        }
+
+        loginViewModel.getSession().observe(this){
+            if (it.status == "admin"){
+                startActivity(Intent(this, HomeAdminActivity::class.java))
+                finish()
+            }else if (it.status == "konsumen") {
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }
         }

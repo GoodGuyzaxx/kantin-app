@@ -5,7 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class MenuResponse(
 
 	@field:SerializedName("data")
-	val data: List<MenuItem>
+	val data: List<MenuItem>,
+
+	@field:SerializedName("success")
+	val success: Boolean,
+
+	@field:SerializedName("message")
+	val message: String
 )
 
 data class MenuItem(

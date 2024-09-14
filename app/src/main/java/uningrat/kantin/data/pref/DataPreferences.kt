@@ -9,7 +9,6 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlin.math.E
 
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "Data")
@@ -21,6 +20,7 @@ class DataPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences[NAME_KEY] = user.nama_konsumen
             preferences[EMAIL_KEY] = user.email
             preferences[TELP_KEY] = user.no_telp
+            preferences[STATUS_KEY] = user.status
             preferences[IS_LOGIN_KEY] = true
         }
     }
@@ -32,6 +32,7 @@ class DataPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences[NAME_KEY] ?: "",
             preferences[EMAIL_KEY] ?: "",
             preferences[TELP_KEY] ?: "",
+                preferences[STATUS_KEY] ?: "",
             preferences[IS_LOGIN_KEY] ?: false
             )
         }
@@ -70,6 +71,7 @@ class DataPreferences private constructor(private val dataStore: DataStore<Prefe
         private val NAME_KEY = stringPreferencesKey("nama_konsumen")
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val TELP_KEY = stringPreferencesKey("no_telp")
+        private val STATUS_KEY = stringPreferencesKey("status")
         private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
 
         private val ID_KANTIN_KEY = stringPreferencesKey("id_kantin")

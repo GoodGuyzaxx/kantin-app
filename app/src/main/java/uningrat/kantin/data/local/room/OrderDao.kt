@@ -22,8 +22,8 @@ interface OrderDao {
     @Query("SELECT * FROM `order` WHERE id = :id")
     fun getOrderByid(id: String): LiveData<OrderEntity>
 
-    @Query("UPDATE `order` SET status = :status WHERE id = :id")
-    suspend fun updateStatus(id: String, status: String)
+    @Query("UPDATE `order` SET status = :status")
+    suspend fun updateStatus(status: String)
 
     @Query("DELETE FROM `order`")
     suspend fun deleteAll()

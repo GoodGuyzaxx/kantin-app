@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -16,26 +19,52 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.user.order.OrderActivity"
+            android:name=".ui.user.rating.RatingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.cart.CartActivity"
-            android:exported="false" />
+            android:name=".ui.admin.editmenu.EditMenuActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
+        <activity
+            android:name=".ui.admin.addmenu.AddMenuActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
+        <activity
+            android:name=".ui.user.updateprofile.UpdateProifleActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
         <activity
             android:name=".ui.admin.homeadmin.HomeAdminActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home_admin" />
+            android:exported="true"
+            android:label="@string/title_activity_home_admin"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
+        <activity
+            android:name=".ui.user.order.OrderActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
+        <activity
+            android:name=".ui.user.cart.CartActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
         <activity
             android:name=".ui.user.profile.ProfileActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
         <activity
             android:name=".ui.user.kantin.KantinActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Base.Theme.Kantin.ActionBar" />
         <activity
             android:name=".ui.admin.loginadmin.LoginAdminActivity"
             android:exported="false" />
         <activity
             android:name=".ui.user.Home.HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.user.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,12 +72,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.user.register.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.user.login.LoginActivity"
-            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

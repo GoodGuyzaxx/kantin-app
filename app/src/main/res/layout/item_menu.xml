@@ -53,8 +53,8 @@
             
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_tambah"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
                 android:text="Tambah"
                 android:fontFamily="@font/gothic_a1_bold"
                 android:textColor="@color/white"
@@ -65,10 +65,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <ImageView
+                android:id="@+id/btn_rating"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseline_stars_24"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_hapus"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
                 android:text="Hapus"
                 android:fontFamily="@font/gothic_a1_bold"
                 android:textColor="@color/white"

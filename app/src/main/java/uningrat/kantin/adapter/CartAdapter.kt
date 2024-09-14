@@ -1,6 +1,5 @@
 package uningrat.kantin.adapter
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,7 +12,6 @@ import uningrat.kantin.R
 import uningrat.kantin.data.local.entity.CartEntity
 import uningrat.kantin.data.local.room.KantinDatabase
 import uningrat.kantin.databinding.ItemCartBinding
-import kotlin.coroutines.coroutineContext
 
 class CartAdapter: ListAdapter<CartEntity, CartAdapter.ViewHolder>(DIFF_CALLBACK) {
     class ViewHolder(private val binding: ItemCartBinding): RecyclerView.ViewHolder(binding.root) {

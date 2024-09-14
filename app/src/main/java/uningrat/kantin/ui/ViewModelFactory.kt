@@ -5,13 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import uningrat.kantin.di.Injection
 import uningrat.kantin.repository.KantinRepository
+import uningrat.kantin.ui.admin.addmenu.AddMenuViewModel
+import uningrat.kantin.ui.admin.editmenu.EditMenuViewModel
+import uningrat.kantin.ui.admin.homeadmin.ui.menuadmin.MenuAdminViewModel
+import uningrat.kantin.ui.admin.homeadmin.ui.profileadmin.ProfileAdminViewModel
+import uningrat.kantin.ui.admin.loginadmin.LoginAdminViewModel
 import uningrat.kantin.ui.user.Home.HomeViewModel
 import uningrat.kantin.ui.user.cart.CartViewModel
 import uningrat.kantin.ui.user.kantin.KantinViewModel
 import uningrat.kantin.ui.user.login.LoginViewModel
 import uningrat.kantin.ui.user.order.OrderViewModel
 import uningrat.kantin.ui.user.profile.ProfileViewModel
+import uningrat.kantin.ui.user.rating.RatingViewModel
 import uningrat.kantin.ui.user.register.RegisterViewModel
+import uningrat.kantin.ui.user.updateprofile.UpdateProfileViewModel
 
 class ViewModelFactory(private val repository: KantinRepository): ViewModelProvider.NewInstanceFactory() {
 
@@ -31,6 +38,20 @@ class ViewModelFactory(private val repository: KantinRepository): ViewModelProvi
             return CartViewModel(repository) as T
         }else if (modelClass.isAssignableFrom(OrderViewModel::class.java)){
             return OrderViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(UpdateProfileViewModel::class.java)){
+            return UpdateProfileViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(LoginAdminViewModel::class.java)){
+            return LoginAdminViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(ProfileAdminViewModel::class.java)){
+            return ProfileAdminViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(MenuAdminViewModel::class.java)){
+            return MenuAdminViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(AddMenuViewModel::class.java)) {
+            return AddMenuViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(EditMenuViewModel::class.java)) {
+            return EditMenuViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(RatingViewModel::class.java)) {
+            return RatingViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknow ViewModel Class: ${modelClass.name}")
     }

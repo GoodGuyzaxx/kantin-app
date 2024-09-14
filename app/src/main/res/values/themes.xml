@@ -6,4 +6,16 @@
     </style>
 
     <style name="Theme.Kantin" parent="Base.Theme.Kantin" />
+
+    <style name="Base.Theme.Kantin.ActionBar" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/primeblue</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:statusBarColor">#6EAFF7</item>
+
+        <item name="colorControlNormal">#6EAFF7</item>
+        <item name="colorControlActivated">#6EAFF7</item>
+        <item name="actionBarTheme">@color/white</item>
+
+    </style>
 </resources>

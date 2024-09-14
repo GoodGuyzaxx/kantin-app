@@ -11,7 +11,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import uningrat.kantin.data.local.entity.CartEntity
 import uningrat.kantin.data.local.entity.OrderEntity
 import uningrat.kantin.data.pref.KantinModel
 import uningrat.kantin.data.retrofit.response.OrderItemResponse

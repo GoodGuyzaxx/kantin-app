@@ -3,6 +3,8 @@ package uningrat.kantin.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import uningrat.kantin.data.local.entity.CartEntity
 import uningrat.kantin.data.local.entity.OrderEntity
 import uningrat.kantin.data.local.room.CartDao
@@ -12,13 +14,14 @@ import uningrat.kantin.data.pref.DataPreferences
 import uningrat.kantin.data.pref.KantinModel
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.ApiService
-import uningrat.kantin.data.retrofit.response.DataOrder
-import uningrat.kantin.data.retrofit.response.KantinResponse
+import uningrat.kantin.data.retrofit.response.AddMenuResponse
+import uningrat.kantin.data.retrofit.response.LoginAdminResponse
 import uningrat.kantin.data.retrofit.response.LoginResponse
-import uningrat.kantin.data.retrofit.response.OrderIdResponse
+import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
+import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -48,7 +51,51 @@ class KantinRepository private constructor(
         return apiService.postOrder(nama, namaKantin, email, totalHarga)
     }
 
-//    suspend fun getOrderId(id: String): DataOrder{
+    suspend fun updateProfile(id: String,email: String, noTelp: String): UpdateProfileResponse {
+        return  apiService.updateProfile(id,email,noTelp)
+
+    }
+
+    /*ADMIN Responsen HTTP*/
+    suspend fun postAdminLogin(email: String, password: String): LoginAdminResponse{
+        return apiService.postAdminLogin(email,password)
+    }
+
+    suspend fun getAllMenu(): MenuResponse{
+        return apiService.getAllMenu()
+    }
+
+    suspend fun gaetAllMenuByKantin(id: String): MenuResponse{
+        return apiService.getMenuByKantinId(id)
+    }
+
+    suspend fun addMenu(
+        idKantin : RequestBody,
+        namaMenu: RequestBody,
+        deskripsi : RequestBody,
+        harga: RequestBody,
+        stock : RequestBody,
+        kategori : RequestBody,
+        multipartBody: MultipartBody.Part
+    ): AddMenuResponse{
+        return apiService.addMenu(idKantin,namaMenu,deskripsi,harga,stock,kategori,multipartBody)
+    }
+
+    suspend fun editMenu(
+        id: String,
+        idKantin : RequestBody,
+        namaMenu: RequestBody,
+        deskripsi : RequestBody,
+        harga: RequestBody,
+        stock : RequestBody,
+        kategori : RequestBody,
+        multipartBody: MultipartBody.Part,
+        _method : RequestBody
+    ): AddMenuResponse{
+        return apiService.editMenu(id,idKantin,namaMenu,deskripsi,harga,stock,kategori,multipartBody,_method)
+    }
+
+//    suspend fun getOrderId(id: String): OrderIdResponse{
 //        return apiService.getOrderId(id)
 //    }
 
@@ -93,8 +140,12 @@ class KantinRepository private constructor(
         executorService.execute { mOrderDao.insert(order) }
     }
 
-    suspend fun updateOrderStatus(id: String, status: String){
-        return mOrderDao.updateStatus(id, status)
+    fun updateOrder(order: OrderEntity) {
+        executorService.execute { mOrderDao.update(order) }
+    }
+
+    suspend fun updateOrderStatus(status: String){
+        return mOrderDao.updateStatus(status)
     }
 
     fun getAllOrder(): LiveData<OrderEntity>{

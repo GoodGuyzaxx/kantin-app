@@ -5,5 +5,6 @@ data class UserModel(
     val nama_konsumen: String,
     val email: String,
     val no_telp: String,
+    val status: String,
     val isLogin: Boolean = false
 )

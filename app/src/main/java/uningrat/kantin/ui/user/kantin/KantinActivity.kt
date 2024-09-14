@@ -7,8 +7,6 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import uningrat.kantin.R
@@ -28,8 +26,14 @@ class KantinActivity : AppCompatActivity() {
         binding = ActivityKantinBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val actionBar = supportActionBar
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+
+
         val getIdKantin = intent.getIntExtra(ID_KANTIN,0)
         val getEmail = intent.getStringExtra(EMAIL_ADMIN)
+        actionBar?.title = "Kantin $getIdKantin"
 
         kantinViewModel.saveKantinSession(KantinModel(
             id = getIdKantin.toString(),
@@ -58,6 +62,11 @@ class KantinActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     companion object {

@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import uningrat.kantin.data.retrofit.response.LoginResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.repository.KantinRepository
 

@@ -5,16 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.HttpException
 import retrofit2.Response
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.ApiConfig
-import uningrat.kantin.data.retrofit.ApiService
 import uningrat.kantin.data.retrofit.response.DataItem
 import uningrat.kantin.data.retrofit.response.KantinResponse
 import uningrat.kantin.repository.KantinRepository
@@ -50,10 +45,6 @@ class HomeViewModel(private val repository: KantinRepository): ViewModel() {
 
         })
     }
-
-
-
-
     fun getSession(): LiveData<UserModel>  {
         return repository.getSession().asLiveData()
     }

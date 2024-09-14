@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class OrderIdResponse(
 
 	@field:SerializedName("data")
-	val data: List<DataOrder>,
+	val data: DataOrder,
 
 	@field:SerializedName("success")
 	val success: Boolean,

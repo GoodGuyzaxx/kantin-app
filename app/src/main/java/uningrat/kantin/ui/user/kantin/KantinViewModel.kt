@@ -1,18 +1,13 @@
 package uningrat.kantin.ui.user.kantin
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uningrat.kantin.data.pref.KantinModel
 import uningrat.kantin.data.pref.UserModel
-import uningrat.kantin.data.retrofit.ApiConfig
 import uningrat.kantin.data.retrofit.response.MenuKantinResponse
 import uningrat.kantin.repository.KantinRepository
 
@@ -31,21 +26,21 @@ class KantinViewModel(private val repository: KantinRepository): ViewModel() {
         }
     }
 
-    fun getKaninById(id : String){
-        val client = ApiConfig.getApiService().getMenuByKantinId(id)
-        client.enqueue(object : Callback<MenuKantinResponse> {
-            override fun onResponse(p0: Call<MenuKantinResponse>, p1: Response<MenuKantinResponse>) {
-                if (p1.isSuccessful){
-                    _menuKantinResponse.value = p1.body()
-                }else {
-                    Log.e("TAG", "onResponse: ${p1.message()}", )
-                }
-            }
-
-            override fun onFailure(p0: Call<MenuKantinResponse>, p1: Throwable) {
-                Log.e("TAG", "onFailure: ${p1.message.toString()}", )
-            }
-
-        })
-    }
+//    fun getKaninById(id : String){
+//        val client = ApiConfig.getApiService().getMenuByKantinId(id)
+//        client.enqueue(object : Callback<MenuKantinResponse> {
+//            override fun onResponse(p0: Call<MenuKantinResponse>, p1: Response<MenuKantinResponse>) {
+//                if (p1.isSuccessful){
+//                    _menuKantinResponse.value = p1.body()
+//                }else {
+//                    Log.e("TAG", "onResponse: ${p1.message()}", )
+//                }
+//            }
+//
+//            override fun onFailure(p0: Call<MenuKantinResponse>, p1: Throwable) {
+//                Log.e("TAG", "onFailure: ${p1.message.toString()}", )
+//            }
+//
+//        })
+//    }
 }

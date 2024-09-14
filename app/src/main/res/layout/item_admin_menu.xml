@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_menu_item"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/login_img"
+                android:layout_marginStart="10dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_name_menu_item_admin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Mie Goreng"
+                android:fontFamily="@font/gothic_a1_bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toEndOf="@id/iv_menu_item"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_harga_item_admin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gothic_a1"
+                android:text="@string/mata_uang"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_menu_item_admin"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_menu_item_admin" />
+
+            <ImageView
+                android:id="@+id/iv_delete_menu_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_delete_forever_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:focusable="true"
+                android:clickable="true"/>
+
+            <ImageView
+                android:id="@+id/iv_edit_menu_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_edit_square_24"
+                app:layout_constraintEnd_toStartOf="@id/iv_delete_menu_admin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:focusable="true"
+                android:clickable="true"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

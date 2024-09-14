@@ -1,13 +1,12 @@
 package uningrat.kantin.ui.user.menu
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import uningrat.kantin.R
 import uningrat.kantin.adapter.MenuAdapter
 import uningrat.kantin.data.retrofit.response.MenuItem
 import uningrat.kantin.databinding.FragmentMenuBinding

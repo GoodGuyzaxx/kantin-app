@@ -1,24 +1,38 @@
 package uningrat.kantin.data.retrofit
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
-import uningrat.kantin.data.retrofit.response.DataOrder
+import uningrat.kantin.data.retrofit.response.AddMenuResponse
 import uningrat.kantin.data.retrofit.response.KantinResponse
+import uningrat.kantin.data.retrofit.response.LoginAdminResponse
 import uningrat.kantin.data.retrofit.response.LoginResponse
-import uningrat.kantin.data.retrofit.response.MenuKantinResponse
 import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderIdResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
-import uningrat.kantin.repository.KantinRepository
+import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 
 interface ApiService{
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("admin/login")
+    suspend fun postAdminLogin(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): LoginAdminResponse
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
@@ -27,6 +41,15 @@ interface ApiService{
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @PATCH("konsumen/{id}")
+    suspend fun updateProfile(
+        @Path("id") id: String,
+        @Field("email") email: String,
+        @Field("no_telp") noTelp: String
+    ): UpdateProfileResponse
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
@@ -44,9 +67,47 @@ interface ApiService{
 
     @Headers("Accept: application/json")
     @GET("menu/kantin/{id}")
-    fun getMenuByKantinId(
+    suspend fun getMenuByKantinId(
         @Path("id") id :String
-    ): Call<MenuKantinResponse>
+    ): MenuResponse
+
+    @Headers("Accept: application/json")
+    @DELETE("menu/{id}")
+    fun deleteMenuByKantinId(
+        @Path("id") id :String
+    ): Call<MenuResponse>
+
+    @Headers("Accept: application/json")
+    @GET("menu")
+    suspend fun getAllMenu(): MenuResponse
+
+    @Headers("Accept: application/json")
+    @Multipart
+    @POST("menu")
+    suspend fun addMenu(
+        @Part("id_kantin") idKantin : RequestBody,
+        @Part("nama_menu") namaMenu : RequestBody,
+        @Part("deskripsi") deskripsi : RequestBody,
+        @Part("harga") harga : RequestBody,
+        @Part("stock") stock : RequestBody,
+        @Part("kategori") kategori : RequestBody,
+        @Part file : MultipartBody.Part,
+    ): AddMenuResponse
+
+    @Headers("Accept: application/json")
+    @Multipart
+    @POST("menu/{id}")
+    suspend fun editMenu(
+        @Path("id") id : String,
+        @Part("id_kantin") idKantin : RequestBody,
+        @Part("nama_menu") namaMenu : RequestBody,
+        @Part("deskripsi") deskripsi : RequestBody,
+        @Part("harga") harga : RequestBody,
+        @Part("stock") stock : RequestBody,
+        @Part("kategori") kategori : RequestBody,
+        @Part file : MultipartBody.Part,
+        @Part("_method") _method : RequestBody,
+    ): AddMenuResponse
 
     @Headers("Accept: application/json")
     @GET("makanan/kantin/{id}")
@@ -59,7 +120,6 @@ interface ApiService{
     fun getMenuMinuman(
         @Path("id") id : String
     ): Call<MenuResponse>
-
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
@@ -75,7 +135,7 @@ interface ApiService{
     @GET("order/id/{id}")
     fun getOrderId(
         @Path("id") id :String
-    ): Call<DataOrder>
+    ): Call<OrderIdResponse>
 
     @FormUrlEncoded
     @Headers("Accept: application/json")

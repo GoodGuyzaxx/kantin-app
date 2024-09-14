@@ -1,6 +1,6 @@
 package uningrat.kantin.adapter
 
-import android.text.Layout
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import uningrat.kantin.data.retrofit.response.MenuItem
-import uningrat.kantin.databinding.ItemMenuBinding
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uningrat.kantin.R
 import uningrat.kantin.data.local.entity.CartEntity
 import uningrat.kantin.data.local.room.KantinDatabase
+import uningrat.kantin.data.retrofit.response.MenuItem
+import uningrat.kantin.databinding.ItemMenuBinding
+import uningrat.kantin.ui.user.rating.RatingActivity
 
 class MenuAdapter: ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DIFF_CALLBACK) {
 
@@ -28,6 +28,12 @@ class MenuAdapter: ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DIFF_CALLBA
                 .into(binding.ivMenuItem)
             binding.tvNameMenuItem.text = data.namaMenu
             binding.tvHargaItem.text = itemView.context.getString(R.string.mata_uang, data.harga)
+            binding.btnRating.setOnClickListener {
+                val i = Intent(binding.root.context, RatingActivity::class.java)
+                i.putExtra("id", data.idMenu.toString())
+                binding.root.context.startActivity(i)
+
+            }
             binding.btnTambah.setOnClickListener {
                 insertIntoDatabase(data)
                 binding.btnTambah.visibility = View.GONE

@@ -5,20 +5,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uningrat.kantin.R
@@ -29,9 +22,7 @@ import uningrat.kantin.data.pref.KantinModel
 import uningrat.kantin.databinding.ActivityCartBinding
 import uningrat.kantin.ui.ViewModelFactory
 import uningrat.kantin.ui.user.Home.HomeActivity
-import uningrat.kantin.ui.user.kantin.KantinActivity
 import uningrat.kantin.ui.user.order.OrderActivity
-import kotlin.math.log
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
@@ -43,6 +34,11 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val actionBar = supportActionBar
+        actionBar?.title = "Cart"
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
         updateTotalHarga()
         payment()
@@ -102,8 +98,8 @@ class CartActivity : AppCompatActivity() {
         btnOk.setOnClickListener {
             val intent = Intent(this@CartActivity, HomeActivity::class.java)
             startActivity(intent)
-            finish()
             deleteCart()
+            finish()
         }
         dialog.show()
     }
@@ -122,8 +118,8 @@ class CartActivity : AppCompatActivity() {
         btnOk.setOnClickListener {
             val intent = Intent(this@CartActivity, OrderActivity::class.java)
             startActivity(intent)
-            finish()
             deleteCart()
+            finish()
         }
         dialog.show()
 
@@ -198,11 +194,14 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setUpRecycleView(data : List<CartEntity>){
         val adapter = CartAdapter()
         adapter.submitList(data)
         binding.rvCart.adapter = adapter
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

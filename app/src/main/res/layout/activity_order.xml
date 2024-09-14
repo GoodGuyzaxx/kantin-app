@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/layout_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -77,13 +77,13 @@
 
     <TextView
         android:id="@+id/layout_order_null"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SILAKAN LAKUKAN ORDER"
-        android:visibility="visible"
         android:fontFamily="@font/gothic_a1_bold"
+        android:gravity="center"
+        android:text="SILAKAN LAKUKAN ORDER"
         android:textColor="@color/primeblue"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:visibility="visible" />
 
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

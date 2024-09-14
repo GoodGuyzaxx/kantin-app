@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,6 @@ import uningrat.kantin.data.retrofit.response.DataItem
 import uningrat.kantin.databinding.ActivityHomeBinding
 import uningrat.kantin.ui.ViewModelFactory
 import uningrat.kantin.ui.user.cart.CartActivity
-import uningrat.kantin.ui.user.login.LoginActivity
 import uningrat.kantin.ui.user.order.OrderActivity
 import uningrat.kantin.ui.user.profile.ProfileActivity
 
@@ -52,15 +50,6 @@ class HomeActivity : AppCompatActivity() {
             setDataKantin(it)
         }
 
-
-        homeViewModel.getSession().observe(this){
-            if (it.isLogin){
-                Toast.makeText(this,"HI ${it.nama_konsumen}",Toast.LENGTH_SHORT).show()
-            }else {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-        }
 
         homeViewModel.getSession().observe(this){ data ->
             binding.tvHomeName.text = "Hi,${data.nama_konsumen}"

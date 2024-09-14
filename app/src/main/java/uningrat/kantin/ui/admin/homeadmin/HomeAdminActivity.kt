@@ -1,36 +1,37 @@
 package uningrat.kantin.ui.admin.homeadmin
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import uningrat.kantin.R
 import uningrat.kantin.databinding.ActivityHomeAdminBinding
 
 class HomeAdminActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityHomeAdminBinding
-
+    private lateinit var binding : ActivityHomeAdminBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomeAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        val navView: BottomNavigationView = binding.bottomNavHome
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_home_admin)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_profile,
+                R.id.navigation_pesanan,
+                R.id.navigation_menu_admin
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
 }
