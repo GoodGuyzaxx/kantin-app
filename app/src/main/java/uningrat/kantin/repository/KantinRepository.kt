@@ -20,6 +20,7 @@ import uningrat.kantin.data.retrofit.response.LoginResponse
 import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
+import uningrat.kantin.data.retrofit.response.RatingUserResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 import java.util.concurrent.ExecutorService
@@ -55,6 +56,15 @@ class KantinRepository private constructor(
         return  apiService.updateProfile(id,email,noTelp)
 
     }
+
+    suspend fun getRatingUser(idKosnumen: Int, idMenu: Int): RatingUserResponse {
+        return apiService.getRatingUser(idKosnumen,idMenu)
+    }
+
+    suspend fun updateRatingUser(idKosnumen: Int, idMenu: Int, rating: Int): RatingUserResponse {
+        return apiService.updateRatingUser(idKosnumen,idMenu,rating)
+    }
+
 
     /*ADMIN Responsen HTTP*/
     suspend fun postAdminLogin(email: String, password: String): LoginAdminResponse{
