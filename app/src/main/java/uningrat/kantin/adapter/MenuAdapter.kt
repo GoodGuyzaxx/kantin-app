@@ -30,7 +30,7 @@ class MenuAdapter: ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DIFF_CALLBA
             binding.tvHargaItem.text = itemView.context.getString(R.string.mata_uang, data.harga)
             binding.btnRating.setOnClickListener {
                 val i = Intent(binding.root.context, RatingActivity::class.java)
-                i.putExtra("id", data.idMenu.toString())
+                i.putExtra("id", data.idMenu)
                 binding.root.context.startActivity(i)
 
             }
