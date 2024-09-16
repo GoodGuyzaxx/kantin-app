@@ -21,6 +21,7 @@ import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderIdResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
+import uningrat.kantin.data.retrofit.response.RatingUserResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 
@@ -145,5 +146,21 @@ interface ApiService{
         @Field("id_menu") idMenu : Int,
         @Field("rating") rating : Int,
     ): RatingResponse
+
+    @Headers("Accept: application/json")
+    @GET("rating/{id_konsumen}/{id_menu}")
+    suspend fun getRatingUser(
+        @Path ("id_konsumen") idKonsumen : Int,
+        @Path ("id_menu") idMenu : Int
+    ): RatingUserResponse
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @PATCH("rating/{id_konsumen}/{id_menu}")
+    suspend fun updateRatingUser(
+        @Path ("id_konsumen") idKonsumen : Int,
+        @Path ("id_menu") idMenu : Int,
+        @Field ("rating") rating : Int
+    ): RatingUserResponse
 
 }
