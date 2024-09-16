@@ -20,7 +20,8 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.user.rating.RatingActivity"
-            android:exported="false" />
+            android:theme="@style/Base.Theme.Kantin.ActionBar"
+            android:exported="true" />
         <activity
             android:name=".ui.admin.editmenu.EditMenuActivity"
             android:exported="true"
