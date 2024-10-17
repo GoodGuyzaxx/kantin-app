@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -23,6 +24,9 @@ import uningrat.kantin.databinding.ActivityCartBinding
 import uningrat.kantin.ui.ViewModelFactory
 import uningrat.kantin.ui.user.Home.HomeActivity
 import uningrat.kantin.ui.user.order.OrderActivity
+import java.text.NumberFormat
+import java.util.Locale
+import java.util.UUID
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
@@ -30,6 +34,8 @@ class CartActivity : AppCompatActivity() {
     private val cartViewModel by viewModels<CartViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    val uuidGenerate = UUID.randomUUID()
+    val uuidToString = uuidGenerate.toString()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
@@ -107,12 +113,8 @@ class CartActivity : AppCompatActivity() {
     private fun showSuccessNonTunaiDialog(){
         val dialog = Dialog(this@CartActivity)
         dialog.setContentView(R.layout.dialog_success_payment)
-        cartViewModel.getTotalHarga().observe(this) { totalHarga ->
-            val convertToDouble = totalHarga?.toLong() ?: 0L
             val textValue=dialog.findViewById<TextView>(R.id.tv_dialog_total_harga_value)
-            textValue.text = convertToDouble.toString()
-
-        }
+            textValue.visibility = View.GONE
 
         val btnOk = dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_dialog_payment_ok)
         btnOk.setOnClickListener {
@@ -126,12 +128,13 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun updateTotalHarga(){
+        val formmater = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
         cartViewModel.getTotalHarga().observe(this){totalHarga->
             val convertToDouble = totalHarga?.toLong()
             if (convertToDouble != null){
-                binding.tvTotalHargaValue.text = resources.getString(R.string.mata_uang, convertToDouble)
+                binding.tvTotalHargaValue.text = formmater.format(totalHarga)
             } else {
-                binding.tvTotalHargaValue.text = resources.getString(R.string.mata_uang, 0)
+                binding.tvTotalHargaValue.text = formmater.format(0)
             }
         }
     }
@@ -150,11 +153,14 @@ class CartActivity : AppCompatActivity() {
                             }
                             "NON TUNAI" -> {
                                 processNonCashPayment(kantinSession, convertToDouble)
+                                processNonCashPaymentTransaksi(kantinSession)
+
+                                //Insert Data to ROOM
                                 cartViewModel.orderResponse.observe(this){ data ->
                                     val dataGambarQr = data.actions[0].url
                                     val dataPaymentLink = data.actions[1].url
-                                    val convertToDouble =data.grossAmount.toDouble()
-                                    val convertToInt = convertToDouble.toInt()
+
+                                    val convertToInt = data.grossAmount.toInt()
                                     val order = OrderEntity(
                                         total = convertToInt,
                                         orderId = data.orderId,
@@ -177,16 +183,59 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun processCashPayment(kantinSession: KantinModel, convertToDouble: Long) {
+        val idKantin = kantinSession.id.toInt()
+        val tipePembayaran = "TUNAI"
+        val statusPembayaran = "PAID"
+        val uuidHolder = uuidToString
+        cartViewModel.getSession().observe(this){ session ->
+            cartViewModel.getTotalHarga().observe(this){ totalHarga ->
+                cartViewModel.getAllCart().observe(this){ cartItem ->
+                    val getTotalAmount = totalHarga?.toLong() ?: 0L
+                    val email = session.email
+                    val nama = session.nama_konsumen
+                    cartItem.forEach {
+                        val idMenu = it.idMenu ?: 0
+                        val menuList = it.namaMenu.toString()
+//                        val hargaMenu = it.harga ?: 0
+                        val jumlahMenu = it.jumlah
+                        cartViewModel.postDataTransaksi(uuidHolder,idKantin,getTotalAmount.toInt(),idMenu,menuList,jumlahMenu,tipePembayaran, statusPembayaran, email, nama)
+                    }
+                }
+            }
+        }
         Toast.makeText(this, "Pembayaran tunai sebesar ${convertToDouble}", Toast.LENGTH_SHORT).show()
-
     }
 
     private fun processNonCashPayment(kantinSession: KantinModel, convertToDouble: Long) {
         val nama = kantinSession.id
         val namaKantin = "Kantin"
         val email = kantinSession.email
-        cartViewModel.postOrder(nama, namaKantin, email, convertToDouble)
+        cartViewModel.postOrder(uuidToString,nama, namaKantin, email, convertToDouble)
     }
+
+    private fun processNonCashPaymentTransaksi(kantinSession: KantinModel) {
+        val idKantin = kantinSession.id.toInt()
+        val tipePembayaran = "non-tunai"
+        val statusPembayaran = "Pending"
+        val uuidHolder = uuidToString
+        cartViewModel.getSession().observe(this){ session ->
+            cartViewModel.getTotalHarga().observe(this){ totalHarga ->
+                cartViewModel.getAllCart().observe(this){ cartItem ->
+                    val getTotalAmount = totalHarga?.toLong() ?: 0L
+                    val email = session.email
+                    val nama = session.nama_konsumen
+                    cartItem.forEach {
+                        val idMenu = it.idMenu ?: 0
+                        val menuList = it.namaMenu.toString()
+//                        val haragaMenu = it.harga ?: 0
+                        val jumlahMenu = it.jumlah
+                        cartViewModel.postDataTransaksi(uuidHolder,idKantin,getTotalAmount.toInt(),idMenu,menuList,jumlahMenu,tipePembayaran, statusPembayaran, email, nama)
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun deleteCart(){
         CoroutineScope(Dispatchers.IO).launch {

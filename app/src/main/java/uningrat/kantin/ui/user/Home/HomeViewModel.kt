@@ -5,13 +5,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.ApiConfig
 import uningrat.kantin.data.retrofit.response.DataItem
 import uningrat.kantin.data.retrofit.response.KantinResponse
+import uningrat.kantin.data.retrofit.response.RekomendasiResponse
 import uningrat.kantin.repository.KantinRepository
 
 class HomeViewModel(private val repository: KantinRepository): ViewModel() {
@@ -23,8 +28,27 @@ class HomeViewModel(private val repository: KantinRepository): ViewModel() {
     private val _kantinResponse = MutableLiveData<List<DataItem>>()
     val kantinResponse: LiveData<List<DataItem>> = _kantinResponse
 
+    private val _rekomendasiResponse = MutableLiveData<RekomendasiResponse>()
+    val rekomendasiResponse: LiveData<RekomendasiResponse> = _rekomendasiResponse
+
     init {
         getKantin()
+        getRekomendasiMenu()
+    }
+
+    fun getRekomendasiMenu(){
+        viewModelScope.launch {
+            try {
+                val response = repository.getRekomendasiMenu()
+                _rekomendasiResponse.postValue(response)
+            }catch (e : HttpException){
+                val jsonString = e.response()?.body()?.toString()
+                val errorBody = Gson().fromJson(jsonString, RekomendasiResponse::class.java)
+                val errorMessage = errorBody.message
+                _rekomendasiResponse.postValue(errorBody)
+                Log.d("TAG", "addMenu: $errorMessage")
+            }
+        }
     }
 
 

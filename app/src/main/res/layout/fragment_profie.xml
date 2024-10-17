@@ -76,23 +76,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Akun"-->
+<!--                android:layout_marginStart="10dp"/>-->
+
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/btn_akun"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Update Akun"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:background="@drawable/button_ripple"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:paddingStart="10dp" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Akun"
+                android:text="Riwayat Order"
                 android:layout_marginStart="10dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_akun"
+                android:id="@+id/btn_riwayat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update Akun"
+                android:text="Riwayat"
                 android:textAllCaps="false"
-                android:textAlignment="textStart"
+                android:padding="10dp"
                 android:elevation="10dp"
-                android:stateListAnimator="@null"
+                android:textAlignment="textStart"
                 android:backgroundTint="@color/white"
-                android:paddingStart="10dp" />
+                android:background="@drawable/button_ripple"/>
 
         </LinearLayout>
 
@@ -108,12 +132,12 @@
                 android:layout_height="wrap_content"
                 android:text="Keluar"
                 android:textAllCaps="false"
-                android:textAlignment="textStart"
                 android:textColor="#FF0000"
                 android:elevation="10dp"
-                android:stateListAnimator="@null"
-                android:backgroundTint="@color/white"
-                android:paddingStart="10dp" />
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/button_ripple_stroke"
+                android:stateListAnimator="@null"/>
         </LinearLayout>
 
     </LinearLayout>

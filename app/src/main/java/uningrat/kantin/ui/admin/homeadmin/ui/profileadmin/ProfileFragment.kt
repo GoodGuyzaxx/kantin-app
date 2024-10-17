@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import uningrat.kantin.databinding.FragmentProfieBinding
 import uningrat.kantin.ui.ViewModelFactory
-import uningrat.kantin.ui.user.login.LoginActivity
+import uningrat.kantin.ui.admin.homeadmin.ui.riwayatadmin.RiwayatAdminActivity
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfieBinding? = null
@@ -38,13 +38,29 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnKeluar.setOnClickListener {
-            val i = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(i)
             profileAdminViewModel.logout()
-            activity?.finish()
+            closeEntireApp()
+        }
+
+        binding.btnRiwayat.setOnClickListener {
+            profileAdminViewModel.getSession().observe(viewLifecycleOwner){
+                val idKantin = it.id_konsumen
+                val i = Intent(requireContext(), RiwayatAdminActivity::class.java)
+                i.putExtra("id",idKantin)
+                startActivity(i)
+            }
         }
     }
 
+    fun closeEntireApp() {
+        activity?.let { act ->
+            when {
+                android.os.Build.VERSION.SDK_INT >= 21 -> act.finishAndRemoveTask()
+                android.os.Build.VERSION.SDK_INT >= 16 -> act.finishAffinity()
+                else -> act.finish()
+            }
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -15,14 +15,17 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import uningrat.kantin.data.retrofit.response.AddMenuResponse
 import uningrat.kantin.data.retrofit.response.KantinResponse
+import uningrat.kantin.data.retrofit.response.ListTransaksiResponse
 import uningrat.kantin.data.retrofit.response.LoginAdminResponse
 import uningrat.kantin.data.retrofit.response.LoginResponse
 import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderIdResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
+import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
+import uningrat.kantin.data.retrofit.response.RekomendasiResponse
 import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 
 interface ApiService{
@@ -111,13 +114,13 @@ interface ApiService{
     ): AddMenuResponse
 
     @Headers("Accept: application/json")
-    @GET("makanan/kantin/{id}")
+    @GET("kategori/makanan/kantin/{id}")
     fun getMenuMakanan(
         @Path("id") id : String
     ): Call<MenuResponse>
 
     @Headers("Accept: application/json")
-    @GET("minuman/kantin/{id}")
+    @GET("kategori/minuman/kantin/{id}")
     fun getMenuMinuman(
         @Path("id") id : String
     ): Call<MenuResponse>
@@ -126,6 +129,7 @@ interface ApiService{
     @Headers("Accept: application/json")
     @POST("order/buy")
     suspend fun postOrder(
+        @Field("order_id") orderId: String,
         @Field("name") nama : String,
         @Field("nama_kantin") namaKantin : String,
         @Field("email") email : String,
@@ -162,5 +166,54 @@ interface ApiService{
         @Path ("id_menu") idMenu : Int,
         @Field ("rating") rating : Int
     ): RatingUserResponse
+
+    @Headers("Accept: application/json")
+    @GET("transaksi/email/{id}")
+    suspend fun getDataTransaksi(
+        @Path ("id") id : String,
+    ): ListTransaksiResponse
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("transaksi")
+    suspend fun postDataTransaksi(
+        @Field ("id_order") idOrder : String,
+        @Field ("id_kantin") idKantin : Int,
+        @Field ("total_harga") totalHarga : Int,
+        @Field ("id_menu") idMenu : Int,
+        @Field ("menu") menu : String,
+        @Field ("jumlah") jumlah : Int,
+        @Field ("tipe_pembayaran") tipePembayaran : String,
+        @Field ("status_pembayaran") statusPembayaran : String,
+        @Field ("email_konsumen") emailKonsumen : String,
+        @Field ("nama_konsumen") namaKonsumen : String
+    ): AddMenuResponse
+
+    @Headers("Accept: application/json")
+    @GET("transaksi/status/{id}/{status}")
+    suspend fun getDataTransaksiByStatus(
+        @Path ("id") id : String,
+        @Path ("status") status : String
+    ): ListTransaksiResponse
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @PATCH("transaksi/id/{id}")
+    suspend fun updateDataTransaksi(
+        @Path ("id") id : String,
+        @Field ("status_pesanan") statusPesanan : String,
+    ): ListTransaksiResponse
+
+
+    @Headers("Accept: application/json")
+    @GET("transaksi/kantin/{id}")
+    suspend fun getPenghasilanKantin(
+        @Path ("id") id : String,
+    ): PenghasilaKantinResponse
+
+    @Headers("Accept: application/json")
+    @GET("rekomendasi/menu")
+    suspend fun getRekomendasiMenu(
+    ): RekomendasiResponse
 
 }

@@ -15,13 +15,16 @@ import uningrat.kantin.data.pref.KantinModel
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.ApiService
 import uningrat.kantin.data.retrofit.response.AddMenuResponse
+import uningrat.kantin.data.retrofit.response.ListTransaksiResponse
 import uningrat.kantin.data.retrofit.response.LoginAdminResponse
 import uningrat.kantin.data.retrofit.response.LoginResponse
 import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
+import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
+import uningrat.kantin.data.retrofit.response.RekomendasiResponse
 import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -48,8 +51,8 @@ class KantinRepository private constructor(
         return apiService.postRating(idKosnumen,idMenu,rating)
     }
 
-    suspend fun postOrder(nama: String, namaKantin: String, email: String, totalHarga: Long): OrderItemResponse {
-        return apiService.postOrder(nama, namaKantin, email, totalHarga)
+    suspend fun postOrder(orderId: String,nama: String, namaKantin: String, email: String, totalHarga: Long): OrderItemResponse {
+        return apiService.postOrder(orderId,nama, namaKantin, email, totalHarga)
     }
 
     suspend fun updateProfile(id: String,email: String, noTelp: String): UpdateProfileResponse {
@@ -63,6 +66,14 @@ class KantinRepository private constructor(
 
     suspend fun updateRatingUser(idKosnumen: Int, idMenu: Int, rating: Int): RatingUserResponse {
         return apiService.updateRatingUser(idKosnumen,idMenu,rating)
+    }
+
+    suspend fun getDataTransaksi(id : String): ListTransaksiResponse {
+        return apiService.getDataTransaksi(id)
+    }
+
+    suspend fun getRekomendasiMenu(): RekomendasiResponse{
+        return apiService.getRekomendasiMenu()
     }
 
 
@@ -103,6 +114,32 @@ class KantinRepository private constructor(
         _method : RequestBody
     ): AddMenuResponse{
         return apiService.editMenu(id,idKantin,namaMenu,deskripsi,harga,stock,kategori,multipartBody,_method)
+    }
+
+    suspend fun postDataTransaksi(
+        idOrder: String,
+        idKantin: Int,
+        totalHarga: Int,
+        idMenu: Int,
+        menu: String,
+        jumlah : Int,
+        tipePembayaran: String,
+        statusPembayaran: String,
+        emailKonsumen: String,
+        namaKonsumen : String): AddMenuResponse{
+        return apiService.postDataTransaksi(idOrder, idKantin, totalHarga,idMenu,menu, jumlah,tipePembayaran, statusPembayaran, emailKonsumen,namaKonsumen)
+    }
+
+    suspend fun getDataTransaksiByStatus(id: String, status: String): ListTransaksiResponse {
+        return apiService.getDataTransaksiByStatus(id, status)
+    }
+
+    suspend fun updateDataTransaksi(id: String, statusPesanan: String): ListTransaksiResponse {
+        return apiService.updateDataTransaksi(id, statusPesanan)
+    }
+
+    suspend fun getPenghasilanKantin(id : String ): PenghasilaKantinResponse {
+        return  apiService.getPenghasilanKantin(id)
     }
 
 //    suspend fun getOrderId(id: String): OrderIdResponse{
@@ -160,6 +197,10 @@ class KantinRepository private constructor(
 
     fun getAllOrder(): LiveData<OrderEntity>{
         return mOrderDao.getAllOrder()
+    }
+
+    suspend fun deleteAllOrder() {
+        mOrderDao.deleteAll()
     }
 
 

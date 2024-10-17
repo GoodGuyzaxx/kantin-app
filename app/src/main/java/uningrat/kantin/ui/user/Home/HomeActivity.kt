@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -12,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import uningrat.kantin.R
 import uningrat.kantin.adapter.KantinAdapter
+import uningrat.kantin.adapter.RekomendasiAdapter
 import uningrat.kantin.data.retrofit.response.DataItem
+import uningrat.kantin.data.retrofit.response.DataRekomendasiMenu
 import uningrat.kantin.databinding.ActivityHomeBinding
 import uningrat.kantin.ui.ViewModelFactory
 import uningrat.kantin.ui.user.cart.CartActivity
@@ -43,6 +46,14 @@ class HomeActivity : AppCompatActivity() {
         binding.fabOrder.setColorFilter(Color.WHITE)
         binding.fabCart.setColorFilter(Color.WHITE)
 
+        binding.swHome.setOnRefreshListener {
+            homeViewModel.getRekomendasiMenu()
+            homeViewModel.rekomendasiResponse.observe(this){
+                setRekomendasi(it.data)
+            }
+            binding.swHome.isRefreshing = false
+        }
+
 
         setUpRecycleView()
 
@@ -50,14 +61,16 @@ class HomeActivity : AppCompatActivity() {
             setDataKantin(it)
         }
 
+        homeViewModel.rekomendasiResponse.observe(this){
+            setRekomendasi(it.data)
+        }
+
 
         homeViewModel.getSession().observe(this){ data ->
             binding.tvHomeName.text = "Hi,${data.nama_konsumen}"
         }
 
-
-
-        binding.ivHomeProfie.setOnClickListener {
+        binding.ivHomeProfile.setOnClickListener {
             val i = Intent(this@HomeActivity, ProfileActivity::class.java)
             startActivity(i)
         }
@@ -107,13 +120,27 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUpRecycleView(){
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-        binding.rvKantinHome.layoutManager =layoutManager
+        // Set up RecyclerView for Kantin with horizontal orientation
+        val kantinLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvKantinHome.layoutManager = kantinLayoutManager
+        val kantinAdapter = KantinAdapter()
+        binding.rvKantinHome.adapter = kantinAdapter
+    }
+
+
+    private fun setRekomendasi(data: List<DataRekomendasiMenu>){
+        // Set up RecyclerView for Rekomendasi with vertical orientation
+        val rekomendasiLayoutManager = LinearLayoutManager(this)
+        binding.rvMenu.layoutManager = rekomendasiLayoutManager
+        val rekomendasiAdapter = RekomendasiAdapter()
+        Log.d("TAG", "setRekomendasi: ${data.first().gambar}")
+        rekomendasiAdapter.submitList(data)
+        binding.rvMenu.adapter = rekomendasiAdapter
     }
 
     private fun setDataKantin(data: List<DataItem>){
-        val adapter = KantinAdapter()
-        adapter.submitList(data)
-        binding.rvKantinHome.adapter = adapter
+        // This will update data in the Kantin RecyclerView
+        val kantinAdapter = binding.rvKantinHome.adapter as KantinAdapter
+        kantinAdapter.submitList(data)
     }
 }

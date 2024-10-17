@@ -13,6 +13,8 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import uningrat.kantin.data.local.entity.OrderEntity
 import uningrat.kantin.data.pref.KantinModel
+import uningrat.kantin.data.pref.UserModel
+import uningrat.kantin.data.retrofit.response.AddMenuResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.repository.KantinRepository
 
@@ -20,6 +22,9 @@ class CartViewModel(private val repository: KantinRepository): ViewModel() {
 
     private val _orderResponse = MutableLiveData<OrderItemResponse>()
     val orderResponse: LiveData<OrderItemResponse> = _orderResponse
+
+    private val _transaksiResponse = MutableLiveData<AddMenuResponse>()
+    val transaksiResponse: LiveData<AddMenuResponse> = _transaksiResponse
 
     fun getAllCart() = repository.getAllCart()
 
@@ -29,9 +34,9 @@ class CartViewModel(private val repository: KantinRepository): ViewModel() {
         return repository.getKantinSession().asLiveData()
     }
 
-    fun postOrder(nama: String, namaKantin: String, email: String, totalHarga: Long){
+    fun postOrder(orderId: String,nama: String, namaKantin: String, email: String, totalHarga: Long){
         viewModelScope.launch {
-            val repo = repository.postOrder(nama, namaKantin, email, totalHarga)
+            val repo = repository.postOrder(orderId, nama, namaKantin, email, totalHarga)
             try {
                 _orderResponse.postValue(repo)
             }catch (e : HttpException){
@@ -48,6 +53,28 @@ class CartViewModel(private val repository: KantinRepository): ViewModel() {
         }
     }
 
+    fun postDataTransaksi(
+        idOrder: String,
+        idKantin: Int,
+        totalHarga: Int,
+        idMenu: Int,
+        menu: String,
+        jumlah : Int,
+        tipePembayaran: String,
+        statusPembayaran: String,
+        emailKonsumen: String,
+        namaKonsumen : String
+    ){
+        viewModelScope.launch {
+            try {
+                val response = repository.postDataTransaksi(idOrder, idKantin, totalHarga, idMenu,menu,jumlah, tipePembayaran, statusPembayaran, emailKonsumen,namaKonsumen)
+                _transaksiResponse.postValue(response)
+            }catch (e : HttpException){
+
+            }
+        }
+    }
+
     fun insertOrder(orderEntity: OrderEntity){
         repository.insertOrder(orderEntity)
     }
@@ -55,6 +82,8 @@ class CartViewModel(private val repository: KantinRepository): ViewModel() {
     suspend fun deleteCart(){
         repository.deleteAll()
     }
+
+    fun getSession(): LiveData<UserModel> = repository.getSession().asLiveData()
 
     companion object {
         private val TAG = CartViewModel::class.java.simpleName

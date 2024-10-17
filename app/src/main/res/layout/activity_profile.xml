@@ -86,6 +86,7 @@
          android:textAllCaps="false"
          android:textAlignment="textStart"
          android:elevation="10dp"
+         android:background="@drawable/button_ripple"
          android:stateListAnimator="@null"
          android:backgroundTint="@color/white"
          android:paddingStart="10dp" />
@@ -115,6 +116,7 @@
             android:elevation="10dp"
             android:stateListAnimator="@null"
             android:focusable="true"
+            android:background="@drawable/button_ripple"
             android:backgroundTint="@color/white"
             android:paddingStart="10dp" />
 
@@ -132,12 +134,13 @@
             android:layout_height="wrap_content"
             android:text="Keluar"
             android:textAllCaps="false"
-            android:textAlignment="textStart"
             android:textColor="#FF0000"
             android:elevation="10dp"
-            android:stateListAnimator="@null"
-            android:backgroundTint="@color/white"
-            android:paddingStart="10dp" />
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/button_ripple_stroke"
+            android:stateListAnimator="@null"/>
+
     </LinearLayout>
 
 </LinearLayout>

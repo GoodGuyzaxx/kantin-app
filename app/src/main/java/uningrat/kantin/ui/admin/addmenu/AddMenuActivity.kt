@@ -1,6 +1,5 @@
 package uningrat.kantin.ui.admin.addmenu
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -15,14 +14,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import uningrat.kantin.R
 import uningrat.kantin.databinding.ActivityAddMenuBinding
+import uningrat.kantin.helper.reduceFileImage
 import uningrat.kantin.helper.uriToFile
 import uningrat.kantin.ui.ViewModelFactory
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class AddMenuActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddMenuBinding
@@ -64,11 +58,11 @@ class AddMenuActivity : AppCompatActivity() {
                     val idKantin = session.id_konsumen.trim()
                     val namaMenu = binding.etFoodName.text.toString().trim()
                     val hargaMenu = binding.etFoodPrice.text.toString().trim()
-                    val deskripsiMenu = "TEST"
-                    val stockMenu = 99
+                    val deskripsiMenu = binding.etFoodDescription.text.toString().trim()
+                    val stockMenu = binding.etFoodStock.text.toString().trim()
 
-                    val imageFile = uriToFile(uri, this)
-                    val requestImage = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val imageFile = uriToFile(uri, this).reduceFileImage()
+                    val requestImage = imageFile.asRequestBody("image/jpg".toMediaTypeOrNull())
 
                     val kategoriMenu = when (binding.rgCategory.checkedRadioButtonId) {
                         R.id.rb_food -> "makanan"
@@ -79,7 +73,7 @@ class AddMenuActivity : AppCompatActivity() {
                     val idKantinBody = idKantin.toRequestBody("text/plain".toMediaType())
                     val namaMenuBody = namaMenu.toRequestBody("text/plain".toMediaType())
                     val deskripsiMenuBody = deskripsiMenu.toRequestBody("text/plain".toMediaType())
-                    val stockMenuBody = stockMenu.toString().toRequestBody("text/plain".toMediaType())
+                    val stockMenuBody = stockMenu.toRequestBody("text/plain".toMediaType())
                     val hargaMenuBody = hargaMenu.toRequestBody("text/plain".toMediaType())
                     val kategoriMenuBody = kategoriMenu.toRequestBody("text/plain".toMediaType())
 

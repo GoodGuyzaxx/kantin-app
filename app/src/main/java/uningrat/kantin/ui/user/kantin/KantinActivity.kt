@@ -52,9 +52,8 @@ class KantinActivity : AppCompatActivity() {
 
         //ViewPager
         val sectionPagerAdapter = SectionPagerAdapter(this)
-        if (getIdKantin != null ){
             sectionPagerAdapter.idKantin = getIdKantin.toString()
-        }
+
 
         binding.viewPager.adapter = sectionPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)

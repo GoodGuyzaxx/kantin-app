@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout_item_pemesanan"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_fastfood_24"/>
+
+        <TextView
+            android:id="@+id/tv_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Orang"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/gothic_a1_bold"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_name">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_menu_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_pesanan_selesai"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Pesenan Diproses"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/button_ripple"
+        app:layout_constraintTop_toBottomOf="@id/layout_menu"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_batalkan"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_ripple"
+        android:backgroundTint="#F32013"
+        android:textAllCaps="false"
+        android:text="Batalkan"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_pesanan_selesai"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_pesanan_selesai"
+        app:layout_constraintTop_toTopOf="@+id/btn_pesanan_selesai" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -70,10 +70,16 @@ class OrderViewModel(private val repository: KantinRepository): ViewModel() {
 //            repository.updateOrderStatus(status)
 //        }
 //    }
+    fun deleteAllOrder(){
+        viewModelScope.launch {
+            repository.deleteAllOrder()
+        }
+    }
 
     fun update(order: OrderEntity){
         repository.updateOrder(order)
     }
+
     fun getOrderID(id: String){
         val clinet = ApiConfig.getApiService().getOrderId(id)
         clinet.enqueue(object : Callback<OrderIdResponse>{
@@ -92,22 +98,5 @@ class OrderViewModel(private val repository: KantinRepository): ViewModel() {
         })
     }
 
-//    fun getOrderID(id: String){
-//        if (isRequsetProgress) return
-//        viewModelScope.launch {
-//            try {
-//            val response = repository.getOrderId(id)
-//            _responseOrderId.postValue(response)
-//            }catch (e : HttpException) {
-//                val jsonString = e.response()?.errorBody()?.string()
-//                val errorBody = Gson().fromJson(jsonString, OrderIdResponse::class.java)
-//                val errorMessage = errorBody
-//                _responseOrderId.postValue(errorBody)
-//                Log.d("TAG", "getLogin: $errorMessage")
-//            }finally {
-//                isRequsetProgress =false
-//            }
-//        }
-//    }
 
 }

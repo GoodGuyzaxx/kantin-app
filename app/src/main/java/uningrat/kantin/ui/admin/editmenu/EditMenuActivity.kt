@@ -16,9 +16,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import uningrat.kantin.R
 import uningrat.kantin.databinding.ActivityEditMenuBinding
+import uningrat.kantin.helper.reduceFileImage
 import uningrat.kantin.helper.uriToFile
 import uningrat.kantin.ui.ViewModelFactory
-import kotlin.math.log
 
 class EditMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditMenuBinding
@@ -38,11 +38,15 @@ class EditMenuActivity : AppCompatActivity() {
         val harga = intent.getStringExtra(HARGA_MENU)
         val gambar = intent.getStringExtra(GAMBAR_MENU)
         val kategori = intent.getStringExtra(KATEGORI_MENU)
+        val deskripsi = intent.getStringExtra(DESKRIPSI_MENU)
+        val stok = intent.getStringExtra(STOK_MENU)
 
         Log.d("TAG", "onCreate: $id")
 
         binding.etFoodName.setText(nama)
         binding.etFoodPrice.setText(harga)
+        binding.etFoodDescription.setText(deskripsi)
+        binding.etFoodStock.setText(stok)
         Glide
             .with(binding.root.context)
             .load(gambar)
@@ -71,10 +75,10 @@ class EditMenuActivity : AppCompatActivity() {
                         val idKantin = session.id_konsumen.trim()
                         val namaMenu = binding.etFoodName.text.toString().trim()
                         val hargaMenu = binding.etFoodPrice.text.toString().trim()
-                        val deskripsiMenu = "TEST"
-                        val stockMenu = 99
+                        val deskripsiMenu = binding.etFoodDescription.text.toString().trim()
+                        val stockMenu = binding.etFoodStock.text.toString().trim()
 
-                        val imageFile = uriToFile(uri, this)
+                        val imageFile = uriToFile(uri, this).reduceFileImage()
                         val requestImage = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
 
                         val kategoriMenu = when (binding.rgCategory.checkedRadioButtonId) {
@@ -86,8 +90,7 @@ class EditMenuActivity : AppCompatActivity() {
                         val idKantinBody = idKantin.toRequestBody("text/plain".toMediaType())
                         val namaMenuBody = namaMenu.toRequestBody("text/plain".toMediaType())
                         val deskripsiMenuBody = deskripsiMenu.toRequestBody("text/plain".toMediaType())
-                        val stockMenuBody =
-                            stockMenu.toString().toRequestBody("text/plain".toMediaType())
+                        val stockMenuBody = stockMenu.toRequestBody("text/plain".toMediaType())
                         val hargaMenuBody = hargaMenu.toRequestBody("text/plain".toMediaType())
                         val kategoriMenuBody = kategoriMenu.toRequestBody("text/plain".toMediaType())
                         val metohodBody = method.toRequestBody("text/plain".toMediaType())
@@ -183,5 +186,7 @@ class EditMenuActivity : AppCompatActivity() {
         const val HARGA_MENU = "harga"
         const val GAMBAR_MENU = "gambar"
         const val KATEGORI_MENU = "kategori"
+        const val DESKRIPSI_MENU = "deskripsi"
+        const val STOK_MENU = "stok"
     }
 }

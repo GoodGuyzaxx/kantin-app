@@ -26,8 +26,10 @@ class MenuAdapter: ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DIFF_CALLBA
                 .with(binding.root.context)
                 .load(data.gambar)
                 .into(binding.ivMenuItem)
+            binding.tvDeskripsiItem.text = data.deskripsi
+            binding.tvStockItem.text = itemView.context.getString(R.string.stok_menu, data.stock.toString())
             binding.tvNameMenuItem.text = data.namaMenu
-            binding.tvHargaItem.text = itemView.context.getString(R.string.mata_uang, data.harga)
+            binding.tvHargaItem.text = itemView.context.getString(R.string.mata_uang, data.harga.toString())
             binding.btnRating.setOnClickListener {
                 val i = Intent(binding.root.context, RatingActivity::class.java)
                 i.putExtra("id", data.idMenu)
@@ -58,6 +60,7 @@ class MenuAdapter: ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DIFF_CALLBA
             val context = binding.root.context
             val database = KantinDatabase.getDatabase(context)
             val cartItem = CartEntity(
+                idMenu = data.idMenu,
                 namaMenu = data.namaMenu,
                 harga = data.harga,
                 jumlah = 1

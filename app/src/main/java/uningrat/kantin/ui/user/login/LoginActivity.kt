@@ -11,6 +11,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,8 +20,6 @@ import kotlinx.coroutines.launch
 import uningrat.kantin.R
 import uningrat.kantin.databinding.ActivityLoginBinding
 import uningrat.kantin.ui.ViewModelFactory
-import uningrat.kantin.ui.admin.homeadmin.HomeAdminActivity
-import uningrat.kantin.ui.admin.loginadmin.LoginAdminActivity
 import uningrat.kantin.ui.user.Home.HomeActivity
 import uningrat.kantin.ui.user.register.RegisterActivity
 
@@ -33,13 +32,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        enableEdgeToEdge()
         singUpText()
-        binding.btnLoginAsAdmin.setOnClickListener {
-            val i = Intent(this@LoginActivity, LoginAdminActivity::class.java)
-            i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(i)
-            finish()
-        }
+//        binding.btnLoginAsAdmin.setOnClickListener {
+//            val i = Intent(this@LoginActivity, LoginAdminActivity::class.java)
+//            i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(i)
+//            finish()
+//        }
 
         lifecycleScope.launch {
             loginViewModel.toastEvent.collect {
@@ -65,15 +65,15 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        loginViewModel.getSession().observe(this){
-            if (it.status == "admin"){
-                startActivity(Intent(this, HomeAdminActivity::class.java))
-                finish()
-            }else if (it.status == "konsumen") {
-                startActivity(Intent(this, HomeActivity::class.java))
-                finish()
-            }
-        }
+//        loginViewModel.getSession().observe(this){
+//            if (it.status == "user"){
+//                startActivity(Intent(this, HomeAdminActivity::class.java))
+//                finish()
+//            }else if (it.status == "konsumen") {
+//                startActivity(Intent(this, HomeActivity::class.java))
+//                finish()
+//            }
+//        }
     }
 
     private fun showToast(text : String) {

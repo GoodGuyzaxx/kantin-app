@@ -13,6 +13,9 @@ data class CartEntity(
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
+    @ColumnInfo("id_menu")
+    var idMenu: Int? = null,
+
     @ColumnInfo("nama_menu")
     var namaMenu: String? = null,
 

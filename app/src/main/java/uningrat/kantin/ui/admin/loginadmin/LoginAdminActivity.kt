@@ -3,6 +3,7 @@ package uningrat.kantin.ui.admin.loginadmin
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import uningrat.kantin.databinding.ActivityLoginAdminBinding
@@ -19,6 +20,7 @@ class LoginAdminActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        enableEdgeToEdge()
 
         binding.btnLoginAsAdmin.setOnClickListener {
             isAllCheck = checkField()

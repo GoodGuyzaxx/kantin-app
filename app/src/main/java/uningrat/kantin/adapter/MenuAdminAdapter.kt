@@ -42,6 +42,8 @@ class MenuAdminAdapter : ListAdapter <MenuItem, MenuAdminAdapter.MenuViewHolder>
                 i.putExtra("harga", data.harga.toString())
                 i.putExtra("gambar", data.gambar)
                 i.putExtra("kategori", data.kategori)
+                i.putExtra("deskripsi", data.deskripsi)
+                i.putExtra("stok", data.stock.toString())
                 binding.root.context.startActivity(i)
 
             }

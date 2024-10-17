@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import uningrat.kantin.databinding.ActivityProfileBinding
 import uningrat.kantin.ui.ViewModelFactory
-import uningrat.kantin.ui.user.login.LoginActivity
+import uningrat.kantin.ui.user.transaksi.TransaksiActivity
 import uningrat.kantin.ui.user.updateprofile.UpdateProifleActivity
 
 class ProfileActivity : AppCompatActivity() {
@@ -29,6 +29,11 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(i)
         }
 
+        binding.btnTransaksi.setOnClickListener {
+            val i = Intent(this@ProfileActivity, TransaksiActivity::class.java)
+            startActivity(i)
+        }
+
         profileViewModel.getSession().observe(this){
             binding.tvProfileName.text = it.nama_konsumen
             binding.tvProfileNotelp.text = it.no_telp
@@ -36,13 +41,18 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.btnKeluar.setOnClickListener {
-            val i = Intent(this, LoginActivity::class.java)
-            i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(i)
             profileViewModel.logout()
-            finish()
+            closeEntireApp()
         }
     }
+
+    fun closeEntireApp() {
+        // Close all activities and kill the process
+        finishAffinity() // Close all activities in the task
+        finishAndRemoveTask() // Remove the task
+
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         finish()

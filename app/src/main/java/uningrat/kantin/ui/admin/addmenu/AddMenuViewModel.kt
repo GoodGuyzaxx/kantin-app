@@ -13,7 +13,6 @@ import okhttp3.RequestBody
 import retrofit2.HttpException
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.response.AddMenuResponse
-import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.repository.KantinRepository
 
 class AddMenuViewModel(private val repository: KantinRepository): ViewModel() {

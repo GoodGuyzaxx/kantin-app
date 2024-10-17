@@ -1,21 +1,25 @@
 package uningrat.kantin.ui.user.order
 
+import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import uningrat.kantin.R
 import uningrat.kantin.data.local.entity.OrderEntity
 import uningrat.kantin.databinding.ActivityOrderBinding
 import uningrat.kantin.ui.ViewModelFactory
+import java.io.File
+import java.text.NumberFormat
+import java.util.Locale
 
 class OrderActivity : AppCompatActivity() {
     private lateinit var binding : ActivityOrderBinding
@@ -29,6 +33,7 @@ class OrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         showDataOrder()
 
         val actionBar = supportActionBar
@@ -37,48 +42,49 @@ class OrderActivity : AppCompatActivity() {
         getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
 
-        orderViewModel.responseOrderId.observe(this) {
-            val dataStatus = it.data.status
-            orderViewModel.updateOrder(dataStatus)
-        }
-
-//        updateStatusOrder()
-
-//        val context = binding.root.context
-//        val database = KantinDatabase.getDatabase(context)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            database.orderDao().updateStatus("PENDING")
-//        }
-
         binding.layoutRefresh.setOnRefreshListener {
             orderViewModel.getAllOrder().observe(this@OrderActivity){ dataOrder ->
                 val dataId = dataOrder.orderId
                 orderViewModel.getOrderID(dataId)
+                orderViewModel.responseOrderId.observe(this) {
+                    val dataStatus = it.data.status
+                    orderViewModel.updateOrder(dataStatus)
+                }
             }
+            checkAndDeleteCompletedOrders()
             binding.layoutRefresh.isRefreshing = false
         }
 
+        binding.btnDownload.setOnClickListener {
+            orderViewModel.getAllOrder().observe(this){dataCart ->
+                val name = "qr"
+                val dataQR = dataCart.gambarQr
+                downloadImageNew(name,dataQR)
+            }
+        }
+
     }
 
-    private fun delayReq(){
-        coroutineScope.launch {
-            showDataOrder()
-            delay(10000)
+//    private fun delayReq(){
+//        coroutineScope.launch {
+//            showDataOrder()
+//            delay(10000)
 //            startRepeatingOrder()
-            updateStatusOrder()
-        }
-    }
+//            updateStatusOrder()
+//        }
+//    }
 
     private fun showDataOrder(){
+        val formmater = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
         orderViewModel.getAllOrder().observe(this){dataOrder->
             if (dataOrder != null){
                 Glide
                     .with(binding.root.context)
                     .load(dataOrder.gambarQr)
                     .into(binding.ivQrCode)
-                val convertToLong = dataOrder.total
+//                val convertToLong = dataOrder.total
                 binding.tvOrderStatus.text = dataOrder.status
-                binding.tvOrderTotalAmount.text = resources.getString(R.string.mata_uang, convertToLong)
+                binding.tvOrderTotalAmount.text = formmater.format(dataOrder.total.toDouble())
 
                 binding.btnBayar.setOnClickListener {
                     val deepLink = dataOrder.paymentLink
@@ -108,22 +114,7 @@ class OrderActivity : AppCompatActivity() {
 //    }
 
 
-//    private var responseObserver: Observer<OrderIdResponse>? = null
-
     private fun updateStatusOrder(){
-//        responseObserver?.let { orderViewModel.responseOrderId.removeObserver(it) }
-//
-//        orderViewModel.getAllOrder().observe(this) {order ->
-//            val dataID = order.orderId
-//
-//            responseObserver = Observer<OrderIdResponse> {dataOrder ->
-//                val newDataResponse = dataOrder.data.status
-//                orderViewModel.updateOrder(dataID, newDataResponse)
-//            }
-//
-//            responseObserver?.let { orderViewModel.responseOrderId.observe(this, it) }
-//        }
-
         orderViewModel.getAllOrder().observe(this) {dataOrder ->
             orderViewModel.responseOrderId.observe(this) {
                 val entity = OrderEntity(
@@ -139,9 +130,44 @@ class OrderActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkAndDeleteCompletedOrders() {
+        orderViewModel.getAllOrder().observe(this) { dataOrder ->
+            if (dataOrder != null) {
+                when (dataOrder.status) {
+                    "Paid", "Expired" -> {
+                        orderViewModel.deleteAllOrder()
+                    }
+                }
+            }
+        }
+    }
+
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
+    }
+
+    fun downloadImageNew(filename: String, downloadUrlOfImage: String) {
+        try {
+            val dm = this.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val downloadUri = Uri.parse(downloadUrlOfImage)
+            val request = DownloadManager.Request(downloadUri)
+                .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+                .setAllowedOverRoaming(false)
+                .setTitle(filename)
+                .setMimeType("image/jpeg") // Tipe file Anda. Anda bisa menggunakan kode ini untuk mengunduh tipe file lain juga.
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_PICTURES,
+                    File.separator + filename + ".jpg"
+                )
+
+            dm.enqueue(request)
+            Toast.makeText(this, "Image download started.", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Image download failed.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 //    private fun stopRepetingTask(){
