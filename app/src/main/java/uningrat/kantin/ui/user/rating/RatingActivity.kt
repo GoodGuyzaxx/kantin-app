@@ -24,10 +24,7 @@ class RatingActivity : AppCompatActivity() {
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
-        val getRating = binding.ratingBar.rating
         val id = intent.getIntExtra(ID_MENU,0)
-        Log.d("TAG", "onCreate: $getRating")
-
 
         viewModel.getSession().observe(this) { session ->
             val idKonsumen = session.id_konsumen.toInt()
@@ -64,9 +61,14 @@ class RatingActivity : AppCompatActivity() {
 
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(this@RatingActivity, message,Toast.LENGTH_SHORT).show()
     }
 
     companion object {

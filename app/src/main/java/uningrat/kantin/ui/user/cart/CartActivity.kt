@@ -34,8 +34,8 @@ class CartActivity : AppCompatActivity() {
     private val cartViewModel by viewModels<CartViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    val uuidGenerate = UUID.randomUUID()
-    val uuidToString = uuidGenerate.toString()
+    private val uuidGenerate = UUID.randomUUID()
+    private val uuidToString = uuidGenerate.toString()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
@@ -94,10 +94,9 @@ class CartActivity : AppCompatActivity() {
         val dialog = Dialog(this@CartActivity)
         dialog.setContentView(R.layout.dialog_success_payment)
         cartViewModel.getTotalHarga().observe(this) { totalHarga ->
-            val convertToDouble = totalHarga?.toLong() ?: 0L
+            val convertToDouble = totalHarga ?: 0L
             val textValue=dialog.findViewById<TextView>(R.id.tv_dialog_total_harga_value)
             textValue.text = convertToDouble.toString()
-
         }
 
         val btnOk = dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_dialog_payment_ok)
@@ -159,10 +158,9 @@ class CartActivity : AppCompatActivity() {
                                 cartViewModel.orderResponse.observe(this){ data ->
                                     val dataGambarQr = data.actions[0].url
                                     val dataPaymentLink = data.actions[1].url
-
-                                    val convertToInt = data.grossAmount.toInt()
+                                    val convertToInt = data.grossAmount.toDouble()
                                     val order = OrderEntity(
-                                        total = convertToInt,
+                                        total = convertToInt.toInt(),
                                         orderId = data.orderId,
                                         status = data.transactionStatus,
                                         gambarQr =  dataGambarQr,

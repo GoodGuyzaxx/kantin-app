@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import uningrat.kantin.data.local.entity.CartEntity
 import uningrat.kantin.data.local.entity.OrderEntity
 
-@Database(entities = [CartEntity::class, OrderEntity::class], version = 3, exportSchema = false)
+@Database(entities = [CartEntity::class, OrderEntity::class], version = 4, exportSchema = false)
 abstract class KantinDatabase: RoomDatabase() {
     abstract fun cartDao(): CartDao
     abstract fun orderDao(): OrderDao

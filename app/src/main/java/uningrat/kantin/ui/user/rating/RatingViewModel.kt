@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.response.RatingResponse
+import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
+import uningrat.kantin.data.retrofit.response.UpdateDataRaing
 import uningrat.kantin.repository.KantinRepository
 
 class RatingViewModel (private val repository: KantinRepository): ViewModel() {
@@ -23,6 +25,9 @@ class RatingViewModel (private val repository: KantinRepository): ViewModel() {
 
     private val _ratingUserResponse = MutableLiveData<RatingUserResponse>()
     val ratingUserResponse: LiveData<RatingUserResponse> = _ratingUserResponse
+
+    private val _ratingUpdateResponse = MutableLiveData<RatingUpdateResponse>()
+    val ratingUpdateResponse: LiveData<RatingUpdateResponse> = _ratingUpdateResponse
 
     fun postRating (idKonsumen: Int, idKantin: Int, rating: Int) {
         viewModelScope.launch {
@@ -58,13 +63,16 @@ class RatingViewModel (private val repository: KantinRepository): ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.updateRatingUser(idKonsumen, idMenu, rating)
-                _ratingUserResponse.postValue(response)
+                _ratingUpdateResponse.postValue(response)
             } catch (e: HttpException) {
                 val jsonString = e.response()?.body()?.toString()
-                val errorBody = Gson().fromJson(jsonString, RatingUserResponse::class.java)
+                val errorBody = Gson().fromJson(jsonString, RatingUpdateResponse::class.java)
                 val errorMessage = errorBody.message
                 Log.d("TAG", "postRating: $errorMessage")
-                _ratingUserResponse.postValue(errorBody)
+                _ratingUpdateResponse.postValue(errorBody)
+            } catch (e : Exception) {
+                val errorMessage = e.message
+                Log.d("TAG", "postRating: $errorMessage")
             }
         }
     }

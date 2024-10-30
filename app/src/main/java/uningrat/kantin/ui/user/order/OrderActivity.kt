@@ -26,9 +26,7 @@ class OrderActivity : AppCompatActivity() {
     private val orderViewModel by viewModels<OrderViewModel> {
         ViewModelFactory.getInstance(this)
     }
-//    private val handler = Handler(Looper.getMainLooper())
-//    private lateinit var  runnable: Runnable
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + Job())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderBinding.inflate(layoutInflater)
@@ -44,11 +42,16 @@ class OrderActivity : AppCompatActivity() {
 
         binding.layoutRefresh.setOnRefreshListener {
             orderViewModel.getAllOrder().observe(this@OrderActivity){ dataOrder ->
-                val dataId = dataOrder.orderId
-                orderViewModel.getOrderID(dataId)
-                orderViewModel.responseOrderId.observe(this) {
-                    val dataStatus = it.data.status
-                    orderViewModel.updateOrder(dataStatus)
+                if (dataOrder == null){
+                    Toast.makeText(this, "Data Order Kosong", Toast.LENGTH_SHORT).show()
+                } else {
+                    val dataId = dataOrder.orderId ?: 0
+                    orderViewModel.getOrderID(dataId.toString())
+
+                    orderViewModel.responseOrderId.observe(this) {
+                        val dataStatus = it.data.status
+                        orderViewModel.updateOrder(dataStatus)
+                    }
                 }
             }
             checkAndDeleteCompletedOrders()
@@ -58,21 +61,15 @@ class OrderActivity : AppCompatActivity() {
         binding.btnDownload.setOnClickListener {
             orderViewModel.getAllOrder().observe(this){dataCart ->
                 val name = "qr"
-                val dataQR = dataCart.gambarQr
-                downloadImageNew(name,dataQR)
+                val dataQR = dataCart?.gambarQr
+                if (dataQR != null) {
+                    downloadImageNew(name,dataQR)
+                }
             }
         }
 
     }
 
-//    private fun delayReq(){
-//        coroutineScope.launch {
-//            showDataOrder()
-//            delay(10000)
-//            startRepeatingOrder()
-//            updateStatusOrder()
-//        }
-//    }
 
     private fun showDataOrder(){
         val formmater = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
@@ -84,7 +81,7 @@ class OrderActivity : AppCompatActivity() {
                     .into(binding.ivQrCode)
 //                val convertToLong = dataOrder.total
                 binding.tvOrderStatus.text = dataOrder.status
-                binding.tvOrderTotalAmount.text = formmater.format(dataOrder.total.toDouble())
+                binding.tvOrderTotalAmount.text = formmater.format(dataOrder.total?.toDouble())
 
                 binding.btnBayar.setOnClickListener {
                     val deepLink = dataOrder.paymentLink
@@ -99,20 +96,6 @@ class OrderActivity : AppCompatActivity() {
             }
         }
     }
-
-//    private fun startRepeatingOrder(){
-//        runnable = object : Runnable{
-//            override fun run() {
-//                orderViewModel.getAllOrder().observe(this@OrderActivity){
-//                    val dataId = it.orderId
-//                    orderViewModel.getOrderID(dataId)
-//                }
-//                handler.postDelayed(this, 10000)
-//            }
-//        }
-//        handler.post(runnable)
-//    }
-
 
     private fun updateStatusOrder(){
         orderViewModel.getAllOrder().observe(this) {dataOrder ->
@@ -138,14 +121,10 @@ class OrderActivity : AppCompatActivity() {
                         orderViewModel.deleteAllOrder()
                     }
                 }
+            } else {
+                Toast.makeText(this, "Data Order Kosong", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
     }
 
     fun downloadImageNew(filename: String, downloadUrlOfImage: String) {
@@ -170,12 +149,10 @@ class OrderActivity : AppCompatActivity() {
         }
     }
 
-//    private fun stopRepetingTask(){
-//        handler.removeCallbacks(runnable)
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        stopRepetingTask()
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
+
 }

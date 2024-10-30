@@ -18,7 +18,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://128.199.232.212/api/")
+                .baseUrl("http://192.168.1.7:8000/api/")
 //                .baseUrl("https://terrapin-relaxing-seemingly.ngrok-free.app/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)

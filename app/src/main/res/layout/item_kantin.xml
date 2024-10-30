@@ -1,69 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="160dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center"
+        android:layout_height="150dp"
+        app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="5dp"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_kantin_item"
-                android:layout_width="match_parent"
-                android:src="@drawable/kantin"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
                 android:scaleType="centerCrop"
-                android:layout_height="70dp"/>
+                android:src="@drawable/kantin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/tv_nama_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:fontFamily="@font/gothic_a1_bold"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:text="Kantin 1"
+                android:textColor="@color/primeblue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_kantin_item" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
-                android:orientation="horizontal">
+                android:fontFamily="@font/gothic_a1"
+                android:gravity="center"
+                android:text="BUKA"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/iv_kantin_item" />
 
-                <TextView
-                    android:id="@+id/tv_nama_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gothic_a1_bold"
-                    android:textColor="@color/primeblue"
-                    android:text="Kantin 1"/>
+            <TextView
+                android:id="@+id/tv_hours"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/gothic_a1"
+                android:gravity="center"
+                android:text="08.00 - 20.00"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline3"
+                app:layout_constraintTop_toBottomOf="@id/tv_status" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="78dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="BUKA"
-                        android:textSize="10sp"
-                        android:fontFamily="@font/gothic_a1"
-                        android:gravity="center"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="08.00 - 20.00"
-                        android:textSize="9sp"
-                        android:fontFamily="@font/gothic_a1"
-                        android:gravity="center"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

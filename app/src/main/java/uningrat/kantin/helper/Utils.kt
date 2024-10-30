@@ -8,8 +8,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import androidx.core.content.FileProvider
+import com.google.gson.Gson
+import retrofit2.HttpException
 import uningrat.kantin.BuildConfig
+import uningrat.kantin.data.retrofit.response.ListTransaksiResponse
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -80,3 +84,27 @@ fun File.reduceFileImage(): File {
     bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
     return file
 }
+
+//fun handleHttpException(e: HttpException) {
+//    when (e.code()) {
+//        404 -> {
+//            // Handle 404 Not Found
+//            val jsonString = e.response()?.errorBody()?.string()
+//            val errorBody = Gson().fromJson(jsonString, ListTransaksiResponse::class.java)
+//            val errorMessage = errorBody?.message ?: "Resource not found"
+////            _responseTransaksi.postValue(null) // Handle empty data case
+//            Log.e("TAG", "HTTP 404 Error: $errorMessage")
+//
+//        }
+//        500 -> {
+//            // Handle 500 Internal Server Error
+//            Log.e("TAG", "HTTP 500 Error: Server is down.")
+//
+//        }
+//        else -> {
+//            // Handle other HTTP errors
+//            val errorMessage = e.message ?: "Something went wrong"
+//            Log.e("TAG", "HTTP Error ${e.code()}: $errorMessage")
+//        }
+//    }
+//}

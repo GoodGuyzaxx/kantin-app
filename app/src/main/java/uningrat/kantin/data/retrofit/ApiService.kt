@@ -23,6 +23,7 @@ import uningrat.kantin.data.retrofit.response.OrderIdResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
+import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.data.retrofit.response.RekomendasiResponse
@@ -165,7 +166,7 @@ interface ApiService{
         @Path ("id_konsumen") idKonsumen : Int,
         @Path ("id_menu") idMenu : Int,
         @Field ("rating") rating : Int
-    ): RatingUserResponse
+    ): RatingUpdateResponse
 
     @Headers("Accept: application/json")
     @GET("transaksi/email/{id}")

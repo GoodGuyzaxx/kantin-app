@@ -22,6 +22,7 @@ import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
+import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.data.retrofit.response.RekomendasiResponse
@@ -64,7 +65,7 @@ class KantinRepository private constructor(
         return apiService.getRatingUser(idKosnumen,idMenu)
     }
 
-    suspend fun updateRatingUser(idKosnumen: Int, idMenu: Int, rating: Int): RatingUserResponse {
+    suspend fun updateRatingUser(idKosnumen: Int, idMenu: Int, rating: Int): RatingUpdateResponse {
         return apiService.updateRatingUser(idKosnumen,idMenu,rating)
     }
 

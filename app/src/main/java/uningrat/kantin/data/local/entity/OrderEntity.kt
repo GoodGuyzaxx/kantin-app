@@ -11,20 +11,20 @@ import kotlinx.parcelize.Parcelize
 data class OrderEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0,
+    var id: Int? = null,
 
     @ColumnInfo(name = "order_id")
-    var orderId: String,
+    var orderId: String? = null,
 
     @ColumnInfo(name = "total")
-    var total: Int,
+    var total: Int? = null,
 
     @ColumnInfo(name = "status")
-    var status: String,
+    var status: String? = null,
 
     @ColumnInfo(name = "gambar_qr")
-    var gambarQr: String,
+    var gambarQr: String? = null,
 
     @ColumnInfo(name = "payment_link")
-    var paymentLink: String,
+    var paymentLink: String? = null,
 ): Parcelable

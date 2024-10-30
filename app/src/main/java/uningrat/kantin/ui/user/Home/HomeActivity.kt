@@ -51,6 +51,9 @@ class HomeActivity : AppCompatActivity() {
             homeViewModel.rekomendasiResponse.observe(this){
                 setRekomendasi(it.data)
             }
+            homeViewModel.kantinResponse.observe(this){
+                setDataKantin(it)
+            }
             binding.swHome.isRefreshing = false
         }
 
