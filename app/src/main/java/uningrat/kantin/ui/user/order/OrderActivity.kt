@@ -11,9 +11,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import uningrat.kantin.data.local.entity.OrderEntity
 import uningrat.kantin.databinding.ActivityOrderBinding
 import uningrat.kantin.ui.ViewModelFactory

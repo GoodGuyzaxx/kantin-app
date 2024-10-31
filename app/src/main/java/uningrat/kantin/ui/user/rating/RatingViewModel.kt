@@ -13,7 +13,6 @@ import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
-import uningrat.kantin.data.retrofit.response.UpdateDataRaing
 import uningrat.kantin.repository.KantinRepository
 
 class RatingViewModel (private val repository: KantinRepository): ViewModel() {

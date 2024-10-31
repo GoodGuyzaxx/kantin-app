@@ -5,12 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
