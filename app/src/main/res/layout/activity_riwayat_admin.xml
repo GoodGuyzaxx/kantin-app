@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.admin.homeadmin.ui.riwayatadmin.RiwayatAdminActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:backgroundTint="@color/secondblue"
+        android:id="@+id/fab_filter_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_filter_list_24"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/layout_holder"
         android:layout_width="match_parent"
@@ -60,6 +71,7 @@
         android:fontFamily="@font/gothic_a1_bold"
         android:textAllCaps="true"
         android:textStyle="bold"
+        android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/layout_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

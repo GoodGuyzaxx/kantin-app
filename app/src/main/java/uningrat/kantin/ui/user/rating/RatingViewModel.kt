@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import uningrat.kantin.data.pref.UserModel
+import uningrat.kantin.data.retrofit.response.CheckValueRatingResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
@@ -27,6 +28,16 @@ class RatingViewModel (private val repository: KantinRepository): ViewModel() {
 
     private val _ratingUpdateResponse = MutableLiveData<RatingUpdateResponse>()
     val ratingUpdateResponse: LiveData<RatingUpdateResponse> = _ratingUpdateResponse
+
+    private val _checkValueRatingResponse = MutableLiveData<CheckValueRatingResponse>()
+    val checkValueRatingResponse: LiveData<CheckValueRatingResponse> = _checkValueRatingResponse
+
+    fun getCheckValueRating(namaKonsumen: String) {
+        viewModelScope.launch {
+            val response = repository.getCheckValueRating(namaKonsumen)
+            _checkValueRatingResponse.postValue(response)
+        }
+    }
 
     fun postRating (idKonsumen: Int, idKantin: Int, rating: Int) {
         viewModelScope.launch {

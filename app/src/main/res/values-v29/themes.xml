@@ -1,12 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Kantin" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#6EAFF7</item>
-        <item name="android:forceDarkAllowed">false</item>
-    </style>
-
-    <style name="Theme.Kantin" parent="Base.Theme.Kantin" />
 
     <style name="Base.Theme.Kantin.ActionBar" parent="Theme.AppCompat.Light">
         <!-- Customize your light theme here. -->

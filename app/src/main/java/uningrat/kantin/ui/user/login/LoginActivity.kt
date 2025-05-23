@@ -88,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onClick(widget: View) {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 widget.context.startActivity(intent)
+                finish()
             }
 
             @RequiresApi(Build.VERSION_CODES.M)

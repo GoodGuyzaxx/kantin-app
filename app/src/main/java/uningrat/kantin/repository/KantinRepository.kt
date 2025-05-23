@@ -15,17 +15,22 @@ import uningrat.kantin.data.pref.KantinModel
 import uningrat.kantin.data.pref.UserModel
 import uningrat.kantin.data.retrofit.ApiService
 import uningrat.kantin.data.retrofit.response.AddMenuResponse
+import uningrat.kantin.data.retrofit.response.AddNewKantinResponse
+import uningrat.kantin.data.retrofit.response.CheckValueRatingResponse
 import uningrat.kantin.data.retrofit.response.ListTransaksiResponse
 import uningrat.kantin.data.retrofit.response.LoginAdminResponse
 import uningrat.kantin.data.retrofit.response.LoginResponse
 import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
+import uningrat.kantin.data.retrofit.response.RatingListResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
+import uningrat.kantin.data.retrofit.response.RegisterAdminResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.data.retrofit.response.RekomendasiResponse
+import uningrat.kantin.data.retrofit.response.TransaksiByMonthResponse
 import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -77,10 +82,20 @@ class KantinRepository private constructor(
         return apiService.getRekomendasiMenu()
     }
 
+    suspend fun getCheckValueRating(namaKonsumen: String):CheckValueRatingResponse {
+        return apiService.getCheckValueRating(namaKonsumen)
+    }
+
+
+
 
     /*ADMIN Responsen HTTP*/
     suspend fun postAdminLogin(email: String, password: String): LoginAdminResponse{
         return apiService.postAdminLogin(email,password)
+    }
+
+    suspend fun postAdminRegister(nama_admin: String, email: String, noTelp: String, password:String): RegisterAdminResponse {
+        return apiService.postAdminRegister(nama_admin,email,noTelp,password)
     }
 
     suspend fun getAllMenu(): MenuResponse{
@@ -89,6 +104,10 @@ class KantinRepository private constructor(
 
     suspend fun gaetAllMenuByKantin(id: String): MenuResponse{
         return apiService.getMenuByKantinId(id)
+    }
+
+    suspend fun getRatingByMenu(id : String): RatingListResponse {
+        return  apiService.getRatingByMenu(id)
     }
 
     suspend fun addMenu(
@@ -141,6 +160,14 @@ class KantinRepository private constructor(
 
     suspend fun getPenghasilanKantin(id : String ): PenghasilaKantinResponse {
         return  apiService.getPenghasilanKantin(id)
+    }
+
+    suspend fun getTransaksiByMonth(id: String, month: Int, year: Int): TransaksiByMonthResponse {
+        return apiService.getTransaksiByMonth(id,month,year)
+    }
+
+    suspend fun postRegisterAdminKantin(namaKantin: String , idKantin : Int): AddNewKantinResponse{
+        return apiService.postRegisterAdminKantin(namaKantin, idKantin)
     }
 
 //    suspend fun getOrderId(id: String): OrderIdResponse{

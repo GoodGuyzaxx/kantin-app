@@ -23,6 +23,7 @@ class RiwayatAdapter: ListAdapter<DataTransaksi, RiwayatAdapter.ViewHolder>(DIFF
         }
     }
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.register.RegisterActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="end"
+            android:src="@drawable/register_rectangel_right" />
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="235dp"
+            android:src="@drawable/register_rectangle_left" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/gothic_a1_bold"
+        android:text="REGISTER"
+        android:textColor="#478CF1"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
+
+    <ImageView
+        android:id="@+id/imageview2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/register_img"
+        android:layout_marginTop="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_register_name"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#478CF1"
+        android:drawableStart="@drawable/baseline_account_box_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/gothic_a1"
+        android:hint="Nama"
+        android:inputType="textPersonName"
+        android:textColorHint="#BEDBFC"
+        android:textColor="#478CF1"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageview2"/>
+
+    <EditText
+        android:id="@+id/edt_register_email"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#478CF1"
+        android:drawableStart="@drawable/baseline_email_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/gothic_a1"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#BEDBFC"
+        android:textColor="#478CF1"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_register_name"/>
+
+    <EditText
+        android:id="@+id/edt_register_telp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#478CF1"
+        android:drawableStart="@drawable/baseline_call_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/gothic_a1"
+        android:hint="No Telepon"
+        android:inputType="number"
+        android:textColorHint="#BEDBFC"
+        android:textColor="#478CF1"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_register_email"/>
+
+
+    <EditText
+        android:id="@+id/edt_register_password"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        android:hint="Password"
+        android:fontFamily="@font/gothic_a1"
+        android:backgroundTint="#478CF1"
+        android:textColorHint="#BEDBFC"
+        android:textColor="#478CF1"
+        android:drawableStart="@drawable/baseline_lock_24"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="10dp"
+        android:drawableEnd="@drawable/costume_eye"
+        app:layout_constraintTop_toBottomOf="@id/edt_register_telp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Register"
+        style="@android:style/Widget.Button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/gothic_a1_bold"
+        android:text="DAFTAR"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_register_password" />
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btn_regiter_kantin"-->
+<!--        style="@android:style/Widget.Button"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/button_ripple_stroke"-->
+<!--        android:fontFamily="@font/gothic_a1_bold"-->
+<!--        android:text="DAFTARKAN KANTIN"-->
+<!--        android:textColor="@color/secondblue"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/btn_Register" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

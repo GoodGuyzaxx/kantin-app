@@ -105,5 +105,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edt_login_password" />
 
+    <TextView
+        android:id="@+id/tvSingup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothic_a1_bold"
+        android:text="Daftar Menjadi Admin Kantin Sekarang!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login_as_admin"
+        android:layout_marginTop="30dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

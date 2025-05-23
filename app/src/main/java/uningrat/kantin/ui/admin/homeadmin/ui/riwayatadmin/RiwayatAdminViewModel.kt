@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import uningrat.kantin.data.retrofit.response.ListTransaksiResponse
 import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
+import uningrat.kantin.data.retrofit.response.TransaksiByMonthResponse
 import uningrat.kantin.repository.KantinRepository
 
 class RiwayatAdminViewModel(private val repository: KantinRepository): ViewModel() {
@@ -19,10 +20,30 @@ class RiwayatAdminViewModel(private val repository: KantinRepository): ViewModel
     private val _kantinResposen = MutableLiveData<PenghasilaKantinResponse>()
     val kantinResponse : LiveData<PenghasilaKantinResponse> = _kantinResposen
 
+    private val _transaksiByMonth = MutableLiveData<TransaksiByMonthResponse>()
+    val transaksiByMonth : LiveData<TransaksiByMonthResponse> = _transaksiByMonth
+
     fun getPenghasilanKantin(id: String){
         viewModelScope.launch {
             val response = repository.getPenghasilanKantin(id)
             _kantinResposen.postValue(response)
+        }
+    }
+
+    fun getTransaksiByMonth(id: String, month: Int, year: Int){
+        viewModelScope.launch {
+            try {
+                val response = repository.getTransaksiByMonth(id,month,year)
+                _transaksiByMonth.postValue(response)
+            }catch (e : HttpException){
+                val jsonString = e.response()?.errorBody()?.toString()
+                val errorBody = Gson().fromJson(jsonString, TransaksiByMonthResponse::class.java)
+                _transaksiByMonth.postValue(errorBody)
+
+            }catch (e : Exception){
+                    Log.e("TAG", "getTransaksiByMonth: $e", )
+
+            }
         }
     }
 

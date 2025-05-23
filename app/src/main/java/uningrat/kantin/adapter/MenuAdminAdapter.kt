@@ -20,6 +20,7 @@ import uningrat.kantin.data.retrofit.response.MenuItem
 import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.databinding.ItemAdminMenuBinding
 import uningrat.kantin.ui.admin.editmenu.EditMenuActivity
+import uningrat.kantin.ui.admin.homeadmin.ui.ratingdetail.RatingDetailActivity
 
 class MenuAdminAdapter : ListAdapter <MenuItem, MenuAdminAdapter.MenuViewHolder>(DIFF_CALLBACK) {
 
@@ -45,7 +46,11 @@ class MenuAdminAdapter : ListAdapter <MenuItem, MenuAdminAdapter.MenuViewHolder>
                 i.putExtra("deskripsi", data.deskripsi)
                 i.putExtra("stok", data.stock.toString())
                 binding.root.context.startActivity(i)
-
+            }
+            binding.layoutRatingClickable.setOnClickListener{
+                val i = Intent(binding.root.context, RatingDetailActivity::class.java)
+                i.putExtra("id", data.idMenu.toString())
+                binding.root.context.startActivity(i)
             }
         }
 

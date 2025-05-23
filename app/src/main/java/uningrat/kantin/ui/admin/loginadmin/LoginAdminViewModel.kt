@@ -23,8 +23,8 @@ class LoginAdminViewModel(private val repository: KantinRepository): ViewModel()
         viewModelScope.launch {
             try {
                 val response = repository.postAdminLogin(email, password)
-                val convId = response.data.id.toString()
                 if (response.success){
+                    val convId = response.data.id.toString()
                     saveSession(
                         UserModel(
                             convId,

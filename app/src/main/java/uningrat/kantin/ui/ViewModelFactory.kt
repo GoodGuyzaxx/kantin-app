@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModelProvider
 import uningrat.kantin.di.Injection
 import uningrat.kantin.repository.KantinRepository
 import uningrat.kantin.ui.admin.addmenu.AddMenuViewModel
+import uningrat.kantin.ui.admin.addnewkantin.AddNewKantinViewModel
 import uningrat.kantin.ui.admin.editmenu.EditMenuViewModel
 import uningrat.kantin.ui.admin.homeadmin.ui.menuadmin.MenuAdminViewModel
 import uningrat.kantin.ui.admin.homeadmin.ui.pesanan.uipesanan.dibatalkan.DibatalkanViewModel
 import uningrat.kantin.ui.admin.homeadmin.ui.pesanan.uipesanan.diproses.DiprosesViewModel
 import uningrat.kantin.ui.admin.homeadmin.ui.pesanan.uipesanan.diterima.DiterimaViewModel
 import uningrat.kantin.ui.admin.homeadmin.ui.profileadmin.ProfileAdminViewModel
+import uningrat.kantin.ui.admin.homeadmin.ui.ratingdetail.RatingDetailViewModel
 import uningrat.kantin.ui.admin.homeadmin.ui.riwayatadmin.RiwayatAdminViewModel
 import uningrat.kantin.ui.admin.loginadmin.LoginAdminViewModel
+import uningrat.kantin.ui.admin.registeradmin.RegisterAdminViewModel
 import uningrat.kantin.ui.user.Home.HomeViewModel
 import uningrat.kantin.ui.user.cart.CartViewModel
 import uningrat.kantin.ui.user.kantin.KantinViewModel
@@ -69,6 +72,12 @@ class ViewModelFactory(private val repository: KantinRepository): ViewModelProvi
             return RiwayatAdminViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)){
             return MainViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(RegisterAdminViewModel::class.java)) {
+            return RegisterAdminViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(RatingDetailViewModel::class.java)) {
+            return RatingDetailViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(AddNewKantinViewModel::class.java)) {
+            return AddNewKantinViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknow ViewModel Class: ${modelClass.name}")
     }

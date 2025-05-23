@@ -1,5 +1,6 @@
 package uningrat.kantin.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,7 @@ class MenuAdapter: ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DIFF_CALLBA
             }
         }
 
+        @SuppressLint("SuspiciousIndentation")
         private fun insertIntoDatabase(data: MenuItem) {
             val context = binding.root.context
             val database = KantinDatabase.getDatabase(context)

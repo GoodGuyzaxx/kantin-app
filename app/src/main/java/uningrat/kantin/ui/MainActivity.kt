@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import uningrat.kantin.databinding.ActivityMainBinding
 import uningrat.kantin.ui.admin.homeadmin.HomeAdminActivity
 import uningrat.kantin.ui.admin.loginadmin.LoginAdminActivity
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         enableEdgeToEdge()
 
         binding.consumerButton.setOnClickListener{

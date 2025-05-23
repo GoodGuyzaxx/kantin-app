@@ -13,7 +13,10 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 import uningrat.kantin.data.retrofit.response.AddMenuResponse
+import uningrat.kantin.data.retrofit.response.AddNewKantinResponse
+import uningrat.kantin.data.retrofit.response.CheckValueRatingResponse
 import uningrat.kantin.data.retrofit.response.KantinResponse
 import uningrat.kantin.data.retrofit.response.ListTransaksiResponse
 import uningrat.kantin.data.retrofit.response.LoginAdminResponse
@@ -22,11 +25,14 @@ import uningrat.kantin.data.retrofit.response.MenuResponse
 import uningrat.kantin.data.retrofit.response.OrderIdResponse
 import uningrat.kantin.data.retrofit.response.OrderItemResponse
 import uningrat.kantin.data.retrofit.response.PenghasilaKantinResponse
+import uningrat.kantin.data.retrofit.response.RatingListResponse
 import uningrat.kantin.data.retrofit.response.RatingResponse
 import uningrat.kantin.data.retrofit.response.RatingUpdateResponse
 import uningrat.kantin.data.retrofit.response.RatingUserResponse
+import uningrat.kantin.data.retrofit.response.RegisterAdminResponse
 import uningrat.kantin.data.retrofit.response.RegisterResponse
 import uningrat.kantin.data.retrofit.response.RekomendasiResponse
+import uningrat.kantin.data.retrofit.response.TransaksiByMonthResponse
 import uningrat.kantin.data.retrofit.response.UpdateProfileResponse
 
 interface ApiService{
@@ -38,6 +44,16 @@ interface ApiService{
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginAdminResponse
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("admin/register")
+    suspend fun postAdminRegister(
+        @Field("nama_admin") namaAdmin : String,
+        @Field("email") email : String,
+        @Field("no_telp") noTelp : String,
+        @Field("password") password: String
+    ): RegisterAdminResponse
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
@@ -217,4 +233,32 @@ interface ApiService{
     suspend fun getRekomendasiMenu(
     ): RekomendasiResponse
 
+    @Headers("Accept: application/json")
+    @GET("rating/menu/{id}")
+    suspend fun getRatingByMenu(
+        @Path("id") id : String
+    ): RatingListResponse
+
+    @Headers("Accept: application/json")
+    @GET("transaksi/month/{id}")
+    suspend fun getTransaksiByMonth(
+        @Path("id") id : String,
+        @Query("month") month : Int,
+        @Query("year") year : Int
+    ): TransaksiByMonthResponse
+
+
+    @Headers("Accept: application/json")
+    @GET("rating/status/order/{nama_konsumen}/selesai")
+    suspend fun getCheckValueRating(
+        @Path("nama_konsumen") namaKonsumen : String,
+    ): CheckValueRatingResponse
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("kantin/register")
+    suspend fun postRegisterAdminKantin(
+        @Field("nama_kantin") nama_kantin : String,
+        @Field("id_admin") id_admin : Int
+    ): AddNewKantinResponse
 }

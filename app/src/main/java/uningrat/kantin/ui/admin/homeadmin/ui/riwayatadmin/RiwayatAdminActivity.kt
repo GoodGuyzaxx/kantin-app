@@ -2,6 +2,7 @@ package uningrat.kantin.ui.admin.homeadmin.ui.riwayatadmin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,6 +11,7 @@ import uningrat.kantin.R
 import uningrat.kantin.adapter.PesananBatalAdapter
 import uningrat.kantin.data.retrofit.response.DataTransaksi
 import uningrat.kantin.databinding.ActivityRiwayatAdminBinding
+import uningrat.kantin.helper.MonthYearPickerDialog
 import uningrat.kantin.ui.ViewModelFactory
 import uningrat.kantin.ui.admin.homeadmin.HomeAdminActivity
 
@@ -19,6 +21,7 @@ class RiwayatAdminActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private val status = "Selesai"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRiwayatAdminBinding.inflate(layoutInflater)
@@ -46,6 +49,10 @@ class RiwayatAdminActivity : AppCompatActivity() {
             setUpRecyclerView(it.data)
         }
 
+        binding.fabFilterOrder.setOnClickListener {
+            showMonthYearPicker()
+        }
+
     }
 
     private fun setUpRecyclerView(data : List<DataTransaksi>) {
@@ -58,6 +65,31 @@ class RiwayatAdminActivity : AppCompatActivity() {
         adapter.submitList(data)
         binding.rvRiwayat.adapter = adapter
     }
+
+    fun showMonthYearPicker() {
+        MonthYearPickerDialog(
+            context = this,
+            onDateSelected = { month, year ->
+                // Handle the selected date
+                val selectedMonth = month + 1 // Adding 1 since months are 0-based
+                Log.d("DatePicker", "Selected: Month: $selectedMonth, Year: $year")
+                // Update your UI here
+                val idKantin = intent.getStringExtra(ID_KANTIN).toString()
+                viewModel.getTransaksiByMonth(idKantin,selectedMonth,year)
+                viewModel.transaksiByMonth.observe(this){
+                    val defaultDataUang = 0
+                    if (it.data.totalAmount == 0) {
+                        binding.tvPenghasilan.text = resources.getString(R.string.mata_uang, defaultDataUang.toString())
+                    } else {
+                        binding.tvPenghasilan.text = resources.getString(R.string.mata_uang, it.data.totalAmount.toString())
+                        val valueChaek = it.data.totalAmount
+                        Log.e("TAG", "showMonthYearPicker: $valueChaek", )
+                    }
+                }
+            }
+        ).show(supportFragmentManager, "MonthYearPickerDialog")
+    }
+
 
 
     companion object {

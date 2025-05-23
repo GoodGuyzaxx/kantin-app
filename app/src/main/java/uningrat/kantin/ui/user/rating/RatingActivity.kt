@@ -18,6 +18,8 @@ class RatingActivity : AppCompatActivity() {
         binding = ActivityRatingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkRatingValue()
+
         val actionBar = supportActionBar
         actionBar?.title = "Rating"
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
@@ -66,8 +68,22 @@ class RatingActivity : AppCompatActivity() {
         return true
     }
 
+    private fun checkRatingValue() {
+        viewModel.getSession().observe(this){
+            val namaKonsumen = it.nama_konsumen
+            viewModel.getCheckValueRating(namaKonsumen)
+        }
+        viewModel.checkValueRatingResponse.observe(this){
+            if (it.success){
+                binding.ratingMenuLayout.visibility = View.VISIBLE
+            }else
+                binding.ratingMenuLayout.visibility = View.GONE
+                Toast.makeText(this@RatingActivity, "Rating dapat dilakukan setelah melakuakn pemesanan!!!",Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun showToast(message: String){
-        Toast.makeText(this@RatingActivity, message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@RatingActivity, message,Toast.LENGTH_LONG).show()
     }
 
     companion object {
